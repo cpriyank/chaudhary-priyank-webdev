@@ -1,8 +1,6 @@
-/* 
 body {
-    margin-top: 70px;
+    margin-top: 40px;
 }
-*/
 /* navbar */
 .navbar-default {
     background-color: #448aff;
@@ -36,6 +34,23 @@ a.no-underline-links {
     margin-top: 18px;
 }
 
+.vertical-separator{
+    border-top: 20px;
+    width:1px;
+    background-color: #2d2d2d;
+    left: 33.33%;
+    position: absolute;
+    z-index: 10;
+    top:0;
+    bottom: 0;
+}
+
+
+input.form-control {
+    margin-bottom: 7px;
+}
+
+
 .l-r-padding-twenty{
     padding-right:20px;
     padding-left:20px;
@@ -54,6 +69,12 @@ a.no-underline-links {
     margin-bottom: 5%;
 }
 
+.side-orientation{
+    padding-left: 35px;
+    padding-right: 15px;
+    display: none;
+}
+
 li.no-border  {
     border: 0 none;
 }
@@ -63,8 +84,30 @@ li.no-border  {
     width: 85%;
 }
 
+/* Variations in portrait modes */
 
+.col-xs-8 .navbar-brand{
+    padding-left: 20px;
+}
 
+.col-xs-8 .container-fluid{
+    padding-left: 0px;
+}
 
+.col-xs-4 .col-4-body, .col-xs-8 .col-8-body{
+    padding-top: 30px;
+    padding-bottom: 60px;
+}
 
+.col-xs-4 li{
+    padding-left: 0;
+    padding-right: 0;
+}
 
+.navbar .col-xs-8{
+    padding-left: 0;
+}
+
+.navbar .col-xs-8 .pull-right{
+    padding-right: 20px;
+}

@@ -2,46 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Website</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/overrides.css" rel="stylesheet"/>
 </head>
 <body>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-text pull-left">
-				<a href="website-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-				</p>
-				<a class="navbar-brand">
-					New Website
-				</a>
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="container-fluid">
+					<a href="website-list.html" class="navbar-text pull-left bt-light-color">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					</a>
+					<a href="website-list.html" class="navbar-text pull-right bt-light-color">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"> </span>
+					</a>
+					<a class="navbar-brand" href="#">
+						Websites
+					</a>
+				</div>
 			</div>
-			<p class="navbar-text pull-right">
-			<a href="website-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
-				<span class="glyphicon glyphicon-ok">
-				</span>
-			</a>
-			</p>
+
+			<div class="col-xs-8">
+				<div class="container-fluid">
+					<a href="website-list.html" class="navbar-text pull-left side-orientation">
+						<span class="glyphicon glyphicon-chevron-left bt-light-color" aria-hidden="true"></span>
+					</a>
+					<a href="website-list.html" class="navbar-text pull-right">
+						<span class="glyphicon glyphicon glyphicon-ok bt-light-color" aria-hidden="true"></span>
+					</a>
+					<a class="navbar-brand" href="#">
+						New Website
+					</a>
+				</div>
+			</div>
 		</div>
 	</nav>
 
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="list-group col-4-body">
+					<ul class="list-group">
+						<li class="list-group-item no-border">
+							<a class="no-underline-links" href="page-list.html">Address Book App</a>
+							<a href="website-edit.html" class="navbar-link pull-right">
+								<span class="glyphicon glyphicon-cog"></span>
+							</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a class="no-underline-links" href="page-list.html">Blogger</a>
+							<a href="website-edit.html" class="navbar-link pull-right">
+								<span class="glyphicon glyphicon-cog"></span>
+							</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a class="no-underline-links" href="page-list.html">Blogging App</a>
+							<a href="website-edit.html" class="navbar-link pull-right">
+								<span class="glyphicon glyphicon-cog"></span>
+							</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a class="no-underline-links" href="page-list.html">Script Testing App</a>
+							<a href="website-edit.html" class="navbar-link pull-right">
+								<span class="glyphicon glyphicon-cog"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="vertical-separator" ></div>
+			<div class="col-xs-8">
+				<div class="container-fluid col-8-body">
+					<form>
+						<div class="form-group">
+							<label for="website-name">Name</label>
+							<input type="text" class="form-control" id="new-website-name" placeholder="Name">
+						</div>
+						<div class="form-group">
+							<label for="website-description">Description</label>
+							<textarea id="new-website-description" class="form-control" rows="5" placeholder="Description"></textarea>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div class="container padded-top">
-    <form>
-        <div class="form-group">
-            <label for="edit-website-name">Name</label>
-            <input type="text" class="form-control" id="edit-website-name" placeholder="Name">
-        </div>
-        <div class="form-group">
-            <label for="edit-website-description">Description</label>
-            <textarea id="edit-website-description" class="form-control" rows="5" placeholder="Description"></textarea>
-        </div>
-    </form>
-</div>
+
         <!-- <h1>Profile</h1> -->
 
         <!-- <form> -->
