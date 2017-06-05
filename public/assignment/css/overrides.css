@@ -8,6 +8,11 @@ body {
     background-color: #448aff;
     border-color: #e7e7e7;
 }
+.navbar-default-inv {
+    color: #448aff;
+    background-color: #e7e7e7;
+    border-color: #448aff;
+}
 /* Title */
 .navbar-default .navbar-brand {
     color: #f8f8f8;
