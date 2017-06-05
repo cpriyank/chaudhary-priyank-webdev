@@ -75,6 +75,28 @@ input.form-control {
     display: none;
 }
 
+@media all and (max-device-width:600px) and (orientation:portrait) {
+    .col-xs-4{
+        display: none;
+    }
+    div.vertical-separator{
+        display: none;
+    }
+    .col-xs-8{
+        width: 100%;
+    }
+    .row .col-xs-8 .container-fluid .side-orientation{
+        display: block;
+    }
+}
+
+@media all and (min-device-width:400px) and (orientation:landscape) {
+    .row .col-xs-8 .container-fluid .side-orientation{
+        display: none;
+        width: 0%;
+    }
+}
+
 li.no-border  {
     border: 0 none;
 }
