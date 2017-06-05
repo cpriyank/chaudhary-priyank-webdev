@@ -12,53 +12,41 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-text pull-left">
-				<a href="../user/profile.html" class="navbar-link bt-light-color l-r-padding-twenty">
+				<a href="widget-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a>
 				</p>
 				<a class="navbar-brand">
-					Websites
+					Widget Edit
 				</a>
 			</div>
 			<p class="navbar-text pull-right">
-			<a href="website-new.html" class="navbar-link bt-light-color l-r-padding-twenty">
-				<span class="glyphicon glyphicon-plus">
+			<a href="widget-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
+				<span class="glyphicon glyphicon-ok">
 				</span>
 			</a>
 			</p>
 		</div>
 	</nav>
 
-<div class="container padded-top adjusted-li">
-        <div class="list-group">
-                    <ul class="list-group">
-            <li class="list-group-item no-border">
-            <a href=" href="../page/page-list.html" class="no-underline-links">Address Book App</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-							<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="../page/page-list.html" class="no-underline-links">Blogger</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="../page/page-list.html" class="no-underline-links">Blogging App</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="../page/page-list.html" class="no-underline-links">Script Testing App</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            </ul>
+<div class="container padded-top">
+    <form>
+        <div class="form-group">
+            <label for="widget-heading-name">Name</label>
+            <input type="text" class="form-control" id="widget-heading-name" placeholder="Name">
         </div>
+        <div class="form-group">
+            <label for="widget-heading-text">Text</label>
+            <input type="text" class="form-control" id="widget-heading-text" placeholder="Text">
+        </div>
+        <div class="form-group">
+            <label for="widget-heading-size">Size</label>
+            <input type="text" class="form-control" id="widget-heading-size" placeholder="Size">
+        </div>
+        <a class="btn btn-danger  btn-block" id="widget-heading-delete-btn" href="widget-list.html">Delete</a>
+    </form>
 </div>
+
         <!-- <h1>Profile</h1> -->
 
         <!-- <form> -->
@@ -86,9 +74,15 @@
         <!--    href="login.html">Logout</a> -->
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-                <a href="#" class="pull-right navbar-link">
+    <div class="container">
+        <div class="row navbar-text">
+            <div class="l-r-padding-twenty text-right pull-right">
+                <a href="../user/profile.html">
                     <span class="glyphicon glyphicon-user bt-light-color"></span>
                 </a>
+            </div>
+            </div>
+    </div>
 </nav>
 
 </body>
