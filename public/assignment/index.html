@@ -7,123 +7,125 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
 		<link href="./css/overrides.css" rel="stylesheet"/>
-		<!-- Use app.js -->
+		<!-- Use app.js and config.js -->
     <script src="app.js"></script>
-    <title>Assignment 2</title>
+		<script src="config.js"></script>
+    <title>Assignment</title>
 </head>
 <body>
 
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-text pull-left">
-				<a href="./user/register.html" class="navbar-link bt-light-color l-r-padding-twenty">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-				</p>
-				<a class="navbar-brand">
-					Links
-				</a>
-			</div>
-			<p class="navbar-text pull-right">
-			<a href="./user/register.html" class="navbar-link bt-light-color l-r-padding-twenty">
-				<span class="glyphicon glyphicon-plus">
-				</span>
-			</a>
-			</p>
-		</div>
-	</nav>
+<div ng-view></div>
+<!-- 	<nav class="navbar navbar-default navbar-fixed-top"> -->
+<!-- 		<div class="container-fluid"> -->
+<!-- 			<div class="navbar-header"> -->
+<!-- 				<p class="navbar-text pull-left"> -->
+<!-- 				<a href="./user/register.html" class="navbar-link bt-light-color l-r-padding-twenty"> -->
+<!-- 					<span class="glyphicon glyphicon-chevron-left"></span> -->
+<!-- 				</a> -->
+<!-- 				</p> -->
+<!-- 				<a class="navbar-brand"> -->
+<!-- 					Links -->
+<!-- 				</a> -->
+<!-- 			</div> -->
+<!-- 			<p class="navbar-text pull-right"> -->
+<!-- 			<a href="./user/register.html" class="navbar-link bt-light-color l-r-padding-twenty"> -->
+<!-- 				<span class="glyphicon glyphicon-plus"> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 			</p> -->
+<!-- 		</div> -->
+<!-- 	</nav> -->
 
-<div class="container padded-top adjusted-li">
-        <div class="list-group">
-                    <ul class="list-group">
-            <li class="list-group-item no-border">
-            <a href="./page/page-list.html" class="no-underline-links">Page list</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-							<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="./page/page-edit.html" class="no-underline-links">Page edit</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="./page/page-new.html" class="no-underline-links">Page new</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="./user/login.html" class="no-underline-links">User login</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a href="./user/register.html" class="no-underline-links">User register</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                        <li class="list-group-item no-border">
-            <a href="./user/profile.html" class="no-underline-links">User profile</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                        <li class="list-group-item no-border">
-            <a href="./website/website-edit.html" class="no-underline-links">Website edit</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                        <li class="list-group-item no-border">
-            <a href="./website/website-list.html" class="no-underline-links">Website list</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                        <li class="list-group-item no-border">
-            <a href="./website/website-new.html" class="no-underline-links">Website new</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                                    <li class="list-group-item no-border">
-            <a href="./widget/widget-chooser.html" class="no-underline-links">Widget Chooser</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                                    <li class="list-group-item no-border">
-            <a href="./widget/widget-heading.html" class="no-underline-links">Widget heading</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                                    <li class="list-group-item no-border">
-            <a href="./widget/widget-image.html" class="no-underline-links">Widget image</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                                    <li class="list-group-item no-border">
-            <a href="./widget/widget-youtube.html" class="no-underline-links">Widget youtube</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-                                    <li class="list-group-item no-border">
-            <a href="./widget/widget-list.html" class="no-underline-links">Widget list</a>
-                            <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty">
-						<span class="glyphicon glyphicon-cog"></span>
-						</a>
-            </li>
-            </ul>
-        </div>
-</div>
+<!-- <div class="container padded-top adjusted-li"> -->
+<!--         <div class="list-group"> -->
+<!--                     <ul class="list-group"> -->
+<!--             <li class="list-group-item no-border"> -->
+<!--             <a href="./page/page-list.html" class="no-underline-links">Page list</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 							<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--             <li class="list-group-item no-border"> -->
+<!--             <a href="./page/page-edit.html" class="no-underline-links">Page edit</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--             <li class="list-group-item no-border"> -->
+<!--             <a href="./page/page-new.html" class="no-underline-links">Page new</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--             <li class="list-group-item no-border"> -->
+<!--             <a href="./user/login.html" class="no-underline-links">User login</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--             <li class="list-group-item no-border"> -->
+<!--             <a href="./user/register.html" class="no-underline-links">User register</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                         <li class="list-group-item no-border"> -->
+<!--             <a href="./user/profile.html" class="no-underline-links">User profile</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                         <li class="list-group-item no-border"> -->
+<!--             <a href="./website/website-edit.html" class="no-underline-links">Website edit</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                         <li class="list-group-item no-border"> -->
+<!--             <a href="./website/website-list.html" class="no-underline-links">Website list</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                         <li class="list-group-item no-border"> -->
+<!--             <a href="./website/website-new.html" class="no-underline-links">Website new</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                                     <li class="list-group-item no-border"> -->
+<!--             <a href="./widget/widget-chooser.html" class="no-underline-links">Widget Chooser</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                                     <li class="list-group-item no-border"> -->
+<!--             <a href="./widget/widget-heading.html" class="no-underline-links">Widget heading</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                                     <li class="list-group-item no-border"> -->
+<!--             <a href="./widget/widget-image.html" class="no-underline-links">Widget image</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                                     <li class="list-group-item no-border"> -->
+<!--             <a href="./widget/widget-youtube.html" class="no-underline-links">Widget youtube</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--                                     <li class="list-group-item no-border"> -->
+<!--             <a href="./widget/widget-list.html" class="no-underline-links">Widget list</a> -->
+<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
+<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
+<!-- 						</a> -->
+<!--             </li> -->
+<!--             </ul> -->
+<!--         </div> -->
+<!-- </div> -->
         <!-- <h1>Profile</h1> -->
 
         <!-- <form> -->
@@ -150,11 +152,11 @@
         <!-- <a class="btn btn-danger  btn-block" -->
         <!--    href="login.html">Logout</a> -->
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-                <a href="../user/profile.html" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user bt-light-color"></span>
-                </a>
-</nav>
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom"> -->
+<!--                 <a href="../user/profile.html" class="pull-right navbar-link"> -->
+<!--                     <span class="glyphicon glyphicon-user bt-light-color"></span> -->
+<!--                 </a> -->
+<!-- </nav> -->
 
 </body>
 </html>
