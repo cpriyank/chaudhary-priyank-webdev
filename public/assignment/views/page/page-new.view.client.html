@@ -1,23 +1,33 @@
-	<nav class="navbar navbar-default-inv navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-text pull-left">
-				<a href="../user/profile.html" class="navbar-link bt-light-color l-r-padding-twenty">
+<nav class="navbar navbar-default-inv navbar-fixed-top">
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="container-fluid">
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left bt-light-color">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a>
-				</p>
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/new" class="navbar-text pull-right bt-light-color">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</a>
+				<a class="navbar-brand">
+					Pages
+				</a>
+			</div>
+		</div>
+		<div class="col-xs-8">
+			<div class="container-fluid">
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left side-orientation">
+					<span class="glyphicon glyphicon-chevron-left bt-light-color" aria-hidden="true"></span>
+				</a>
+				<a ng-click="model.createPage()" class="navbar-text pull-right">
+					<span class="glyphicon glyphicon glyphicon-ok bt-light-color" aria-hidden="true"></span>
+				</a>
 				<a class="navbar-brand">
 					New Page
 				</a>
 			</div>
-			<p class="navbar-text pull-right">
-			<a href="page-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
-				<span class="glyphicon glyphicon-ok">
-				</span>
-			</a>
-			</p>
 		</div>
-	</nav>
+	</div>
+</nav>
 
 <div class="container padded-top">
     <form>
@@ -59,7 +69,7 @@
         <!--    href="login.html">Logout</a> -->
 
 <nav class="navbar navbar-default-inv navbar-fixed-bottom">
-                <a href="../user/profile.html" class="pull-right navbar-link">
+	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
 </nav>
