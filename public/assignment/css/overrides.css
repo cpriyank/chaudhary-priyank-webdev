@@ -38,7 +38,7 @@ a.no-underline-links {
     border-top: 20px;
     width:1px;
     background-color: #2d2d2d;
-    left: 33.33%;
+    left: 33%;
     position: absolute;
     z-index: 10;
     top:0;
@@ -132,4 +132,18 @@ li.no-border  {
 
 .navbar .col-xs-8 .pull-right{
     padding-right: 20px;
+}
+
+.padded-alert.alert-success, .padded-alert.alert-danger{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.padded-widget-list{
+    padding-top: 22px;
+    padding-bottom: 7px;
+}
+
+.padded-widget-list-nav{
+    padding-top: 50px;
 }
