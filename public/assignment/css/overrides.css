@@ -51,10 +51,10 @@ a.no-underline-links {
 .vertical-separator{
     border-top: 20px;
     width:1px;
-    background-color: #2d2d2d;
-		color: #111;
+    background-color: transparent;
+		color: transparent;
     left: 33%;
-    position: absolute;
+    position: relative;
     z-index: 10;
     top:0;
     bottom: 0;
