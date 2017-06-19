@@ -11,6 +11,6 @@ app.use(express.static(__dirname + '/public/assignment'));
 // require ("./test/app.js")(app);
 
 var port = process.env.PORT || 3000;
-console.log('hello hello')
+console.log('Hello! Server running on localhost port 3000')
 
 app.listen(port);
