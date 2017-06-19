@@ -21,13 +21,13 @@
 
 <div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType" class="container-fluid padded-widget-list">
     <div ng-switch-when="HEADING">
-        <ng-include src="'views/widget/widget-heading.view.client.html'">
+        <ng-include src="'/views/widget/widget-heading.view.client.html'">
     </div>
     <div ng-switch-when="IMAGE">
-        <ng-include src="'views/widget/widget-image.view.client.html'">
+        <ng-include src="'/views/widget/widget-image.view.client.html'">
     </div>
     <div ng-switch-when="YOUTUBE">
-        <ng-include src="'views/widget/widget-youtube.view.client.html'">
+        <ng-include src="'/views/widget/widget-youtube.view.client.html'">
     </div>
 </div>
 <div class="padded-widget-list-nav"></div>
