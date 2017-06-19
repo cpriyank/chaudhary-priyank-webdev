@@ -1,70 +1,11 @@
-	<nav class="navbar navbar-default-inv navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-text pull-left">
-				<a href="widget-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-				</p>
-				<a class="navbar-brand">
-					Widget Edit
-				</a>
-			</div>
-			<p class="navbar-text pull-right">
-			<a href="widget-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
-				<span class="glyphicon glyphicon-ok">
-				</span>
-			</a>
-			</p>
-		</div>
-	</nav>
-
-<div class="container padded-top">
-    <form>
-        <div class="form-group">
-            <label for="widget-heading-name">Name</label>
-            <input type="text" class="form-control" id="widget-heading-name" placeholder="Name">
+<div class="adjusted-li">
+    <div class="relative-position">
+        <h3>{{widget.text}}</h3>
+        <div class="widget-adj">
+            <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{widget._id}}">
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
         </div>
-        <div class="form-group">
-            <label for="widget-heading-text">Text</label>
-            <input type="text" class="form-control" id="widget-heading-text" placeholder="Text">
-        </div>
-        <div class="form-group">
-            <label for="widget-heading-size">Size</label>
-            <input type="text" class="form-control" id="widget-heading-size" placeholder="Size">
-        </div>
-        <a class="btn btn-danger  btn-block" id="widget-heading-delete-btn" href="widget-list.html">Delete</a>
-    </form>
+    </div>
 </div>
-
-        <!-- <h1>Profile</h1> -->
-
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
-
-<nav class="navbar navbar-default-inv navbar-fixed-bottom">
-                <a href="../user/profile.html" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-</nav>

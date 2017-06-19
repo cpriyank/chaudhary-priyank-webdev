@@ -1,0 +1,43 @@
+<nav  class="navbar navbar-fixed-top ">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a ng-click="model.editWidget()" class="navbar-link  l-r-padding-twenty">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link  l-r-padding-twenty">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </p>
+            <a class=" navbar-brand">
+                Widget Edit
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container padded-top">
+    <form>
+        <div class="form-group">
+            <label for="widget-heading-name">Name</label>
+            <input ng-model="model.widgetName" type="text" class="form-control" id="widget-heading-name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="widget-heading-text">Text</label>
+            <input ng-model="model.widgetText" type="text" class="form-control" id="widget-heading-text" placeholder="Text">
+        </div>
+        <div class="form-group">
+            <label for="widget-heading-size">Size</label>
+            <input ng-model="model.widgetSize" type="text" class="form-control" id="widget-heading-size" placeholder="Size">
+        </div>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger  btn-block" id="widget-heading-delete-btn">Delete</a>
+    </form>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom ">
+    <a href="#/user/{{model.uid}}" class="pull-right navbar-link">
+        <span class="glyphicon glyphicon-user "></span>
+    </a>
+</nav>
