@@ -2,10 +2,10 @@
 	<div class="row">
 		<div class="col-xs-4">
 			<div class="container-fluid">
-				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left bt-light-color">
-					<span class="glyphicon glyphicon-chevron-left"></span>
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left">
+					<span class="glyphicon glyphicon-chevron-left bt-light-color"></span>
 				</a>
-				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/new" class="navbar-text pull-right bt-light-color">
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/new" class="navbar-text pull-right">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</a>
 				<a class="navbar-brand">
@@ -29,17 +29,38 @@
 	</div>
 </nav>
 
-<div class="container padded-top">
-    <form>
-        <div class="form-group">
-            <label for="new-page-name">Name</label>
-            <input type="text" class="form-control" id="new-page-name" placeholder="Name">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="list-group col-4-body">
+                <ul class="list-group">
+                    <li ng-repeat="page in model.pages" class="list-group-item no-border">
+                        <a class="no-underline-links" href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}/widget">{{page.name}}</a>
+                        <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}"
+                           class="navbar-link pull-right l-r-padding-twenty">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="new-page-title">Title</label>
-            <input type="text" class="form-control" id="new-page-title" placeholder="Title">
+        <div class="rt-vertical-line"></div>
+        <div class="col-xs-8">
+            <div class="container-fluid col-8-body">
+                <form>
+                    <div class="form-group">
+                        <label for="new-page-name">Name</label>
+                        <input ng-model="model.pageName" type="text" class="form-control" id="new-page-name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-page-title">Title</label>
+                        <input ng-model="model.pageTitle" type="text" class="form-control" id="new-page-title" placeholder="Title">
+                    </div>
+                </form>
+                <div ng-show="model.errorText" class="alert alert-danger padded-alert" role="alert">{{model.errorText}}</div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 
         <!-- <h1>Profile</h1> -->

@@ -1,6 +1,6 @@
 	<nav class="navbar navbar-default-inv navbar-fixed-top">
 	<div class="row">¬
-         <div class="col-xs-4">¬
+         <div class="col-xs-4 hidden-xs">¬
 				 <div class="container-fluid">
 							<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left">
 									<span class="glyphicon glyphicon-chevron-left bt-light-color" aria-hidden="true"></span>
@@ -20,7 +20,7 @@
 									<span class="glyphicon glyphicon-chevron-left bt-light-color" aria-hidden="true"></span>
 							</a>
 							<a ng-click="model.editPage()" class="navbar-text pull-right">
-									<span class="glyphicon glyphicon glyphicon-ok bt-light-color" aria-hidden="true"></span>
+									<span class="glyphicon glyphicon-ok bt-light-color" aria-hidden="true"></span>
 							</a>
 							<a class="navbar-brand">
 									Edit Page
@@ -32,7 +32,7 @@
 
 <div class="container-fluid">
 	<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-4 hidden-xs">
 					<div class="list-group col-4-body">
 							<ul class="list-group">
 									<li ng-repeat="page in model.pages" class="list-group-item no-border">
