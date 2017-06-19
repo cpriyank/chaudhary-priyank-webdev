@@ -2,7 +2,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<p class="navbar-text pull-left">
-				<a href="widget-list.html" class="navbar-link bt-light-color l-r-padding-twenty">
+				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link bt-light-color l-r-padding-twenty">
 					<span class="glyphicon glyphicon-chevron-left"></span>
 				</a>
 				</p>
@@ -17,15 +17,28 @@
     <div class="list-group">
         <ul class="list-group">
             <li class="list-group-item no-border">
-            <a href="widget-heading.html" class="no-underline-links">Header</a>
+            <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/HEADING" class="no-underline-links">Heading</a>
             </li>
             <li class="list-group-item no-border">
-            <a href="widget-image.html" class="no-underline-links">Image</a>
+            <a ng-click="model.futureFeature()" class="no-underline-links">Label</a>
             </li>
-            <li class="list-group-item no-border">
-            <a href="widget-youtube.html" class="no-underline-links">Youtube</a>
-            </li>
+						<li class="list-group-item no-border">
+							<a ng-click="model.futureFeature()" class="no-underline-links">HTML</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a ng-click="model.futureFeature()" class="no-underline-links">Text Input</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a ng-click="model.futureFeature()" class="no-underline-links">Link</a>
+						</li>
+						<li class="list-group-item no-border">
+							<a ng-click="model.futureFeature()" class="no-underline-links">Button</a>
+						</li>
+						<!-- <li class="list-group-item no-border"> -->
+            <!-- <a href="widget-youtube.html" class="no-underline-links">Youtube</a> -->
+            <!-- </li> -->
         </ul>
+				<div ng-show="model.featureMissingAlert" class="alert alert-info" role="alert">{{model.featureMissingAlert}}</div>
     </div>
 </div>
 
@@ -57,7 +70,7 @@
 
 
 <nav class="navbar navbar-default-inv navbar-fixed-bottom">
-                <a href="../user/profile.html" class="pull-right navbar-link">
+	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
 </nav>
