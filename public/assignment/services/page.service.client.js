@@ -90,5 +90,14 @@
             var index = pages.indexOf(oldPage);
             pages.splice(index, 1);
         }
+
+        function deletePagesByWebsite(websiteId){
+            for(p in pages){
+                var page = pages[p];
+                if(page.websiteId == websiteId){
+                    deletePage(page._id);
+                }
+            }
+        }
     }
 })();
