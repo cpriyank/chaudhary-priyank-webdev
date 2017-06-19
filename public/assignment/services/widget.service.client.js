@@ -179,5 +179,14 @@
             var index = widgets.indexOf(oldWidget);
             widgets.splice(index, 1);
         }
+
+        function deleteWidgetsByPage(pageId) {
+            for (wid in widgets) {
+                widget = widgets[wid];
+                if (widget.pageId === pageId) {
+                    deleteWidget(widget._id);
+                }
+            }
+        }
     }
 })();
