@@ -1,28 +1,42 @@
 body {
     margin-top: 40px;
+		background-color:#fff;
 }
+
+h1, h2, h3, h4, h5, h6, p {
+font-family: 'Lato', sans-serif;
+color: #111;
+}
+
+h1, h2, h3 {
+text-transform: uppercase;
+}
+
+a {
+color: #4717f6;
+}
+
+li {
+color: #a239ca;
+}
+
+.navbar-brand {
+font-family: 'Lato', sans-serif;
+text-transform: uppercase;
+color: 959595; 
+}
+
 /* navbar */
-.navbar-default {
-    background-color: #448aff;
-    border-color: #e7e7e7;
-}
-.navbar-default-inv {
-    color: #448aff;
-    background-color: #e7e7e7;
-    border-color: #448aff;
-}
-/* Title */
-.navbar-default .navbar-brand {
-    color: #f8f8f8;
+.navbar-default, .navbar-brand{
+	font-family: 'Lato', sans-serif;
+	text-transform: uppercase;
+    background-color: transparent;
+    border: none;
 }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-    color: #f8f8f8;
-}
-
-.navbar-default .bt-light-color {
-    color: #f8f8f8;
+label {
+	font-family: 'Lato', sans-serif;
+	text-transform: uppercase;
 }
 
 a.no-underline-links {
@@ -38,6 +52,7 @@ a.no-underline-links {
     border-top: 20px;
     width:1px;
     background-color: #2d2d2d;
+		color: #111;
     left: 33%;
     position: absolute;
     z-index: 10;
@@ -58,7 +73,6 @@ input.form-control {
 .padded-top {
     padding-top: 5%;
     padding-bottom: 10%;
-    /*color: purple;*/
 }
 
 .adjusted-li{
