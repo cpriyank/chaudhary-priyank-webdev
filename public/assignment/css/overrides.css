@@ -45,7 +45,6 @@ a.no-underline-links {
     bottom: 0;
 }
 
-
 input.form-control {
     margin-bottom: 7px;
 }
@@ -67,6 +66,10 @@ input.form-control {
     font-size: 1.5em;
     margin-top: 5%;
     margin-bottom: 5%;
+}
+
+.relative-position {
+position : relative;
 }
 
 .side-orientation{
@@ -104,6 +107,14 @@ li.no-border  {
 .widget-image {
     display: inline-block;
     width: 85%;
+}
+
+.widget-adj{
+top: 0px;
+right : 0px;
+position: absolute;
+z-index: 20;
+padding-right : 0px;
 }
 
 /* Variations in portrait modes */

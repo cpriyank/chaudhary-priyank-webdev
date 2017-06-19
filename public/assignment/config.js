@@ -60,6 +60,11 @@
 				controller: "WidgetListController",
 				controllerAs: "model"
 			})
+			.when('/user/:uid/website/:wid/page/:pid/widget/create/:wtype', {
+				templateUrl : "/views/widget/widget-new.view.client.html",
+				controller: "CreateWidgetController",
+				controllerAs: "model"
+			})
 			.when('/user/:uid/website/:wid/page/:pid/widget/new', {
 				templateUrl : "/views/widget/widget-chooser.view.client.html",
 				controller: "NewWidgetController",
