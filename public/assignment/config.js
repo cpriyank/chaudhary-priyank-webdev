@@ -78,5 +78,10 @@
 			.otherwise({
 				redirectTo : "/"
 			});
+		// trust youtube urls
+		$sceDelegateProvider.resourceUrlWhitelist([
+			'self',
+			'*://www.youtube.com/**'
+		]);
 	}
 })();
