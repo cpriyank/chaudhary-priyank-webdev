@@ -6,98 +6,37 @@
 (function(){
     angular
         .module("WebAppMaker")
-        .factory('PageService', PageService);
-    function PageService(){
-		// data to initialize the pages array
-        var pages = [
-            { "_id": "321", "name": "Post 1", "title": "Post XXX", "websiteId": "567" },
-            { "_id": "432", "name": "Post 2", "title": "SA 2", "websiteId": "567" },
-            { "_id": "543", "name": "Post 3", "title": "XX 3", "websiteId": "567" }
-        ];
+        .factory("PageService", PageService);
 
-// API in the PageService service
+    function PageService($http) {
         var api = {
-            'createPage' : createPage,
-            'findPageByWebsiteId' : findPageByWebsiteId,
-            'findPageById' : findPageById,
-            'updatePage' : updatePage,
-            'deletePage' : deletePage,
-            'deletePagesByWebsite' : deletePagesByWebsite
+            createPage: createPage,
+            findPageByWebsiteId: findPageByWebsiteId,
+            findPageById: findPageById,
+            updatePage: updatePage,
+            deletePage: deletePage
         };
+
         return api;
 
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-            return pages.reduce(getMaxId, 0).toString();
+        function createPage(websiteId, page) {
+            return $http.post('/api/website/' + websiteId + '/page', page);
         }
 
-// createPage(websiteId, page) - adds the page parameter instance to the local
-			// pages array. The new page's websiteId is set to the websiteId parameter
-        function createPage(websiteId, page){
-            var newPageId = getNextId();
-            var newPage = {
-                _id: newPageId,
-                name: page.name,
-                title: page.title,
-                websiteId: websiteId
-            };
-            pages.push(newPage);
-        }
-
-// findPageByWebsiteId(websiteId) - retrieves the pages in local pages array
-			// whose websiteId matches the parameter websiteId
         function findPageByWebsiteId(websiteId) {
-            var result = [];
-            function filterByWebsiteId(page){
-                return page.websiteId === websiteId;
-            }
-            result = pages.filter(filterByWebsiteId);
-            return result;
+            return $http.get('/api/website/' + websiteId + '/page');
         }
 
-// findPageById(pageId) - retrieves the page in local pages array whose _id
-			// matches the pageId parameter
-        function findPageById(pageId){
-            for(p in pages){
-                var page = pages[p];
-                if(page._id == pageId){
-                    return page;
-                }
-            }
-            return null;
+        function findPageById(pageId) {
+            return $http.get('/api/page/' + pageId);
         }
 
-// updatePage(pageId, page) - updates the page in local pages array whose _id
-			// matches the pageId parameter
-        function updatePage(pageId, page){
-            var oldPage = findPageById(pageId);
-            var index = pages.indexOf(oldPage);
-            pages[index].name = page.name;
-            pages[index].title = page.title;
+        function updatePage(pageId, page) {
+            return $http.put('/api/page/' + pageId, page);
         }
 
-// deletePage(pageId) - removes the page from local pages array whose _id
-			// matches the pageId parameter
         function deletePage(pageId) {
-            var oldPage = findPageById(pageId);
-            var index = pages.indexOf(oldPage);
-            pages.splice(index, 1);
-        }
-
-        function deletePagesByWebsite(websiteId){
-            for(p in pages){
-                var page = pages[p];
-                if(page.websiteId == websiteId){
-                    deletePage(page._id);
-                }
-            }
+            return $http.delete('/api/page/' + pageId);
         }
     }
 })();
