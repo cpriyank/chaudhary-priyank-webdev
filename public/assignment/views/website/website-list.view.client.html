@@ -1,64 +1,36 @@
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <p class="navbar-text pull-right">
-            <a href="#/user/{{model.uid}}/website/new" class="navbar-link  l-r-padding-twenty">
+        <div class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/new">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
-        </p>
+        </div>
         <div class="navbar-header">
-            <p class="navbar-text pull-left">
-                <a href="#/user/{{model.uid}}" class="navbar-link  l-r-padding-twenty">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-            <a class="navbar-brand">
+            <a class="navbar-brand" href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
                 Websites
             </a>
         </div>
     </div>
 </nav>
 
-<div class="container adjusted-li">
-    <div class="list-group">
-        <ul class="list-group">
-            <li ng-repeat="website in model.websites" class="list-group-item no-border">
-                <a class="no-underline-links" href="#/user/{{website.developerId}}/website/{{website._id}}/page">{{website.name}}</a>
-                <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="navbar-link pull-right l-r-padding-twenty">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
-        </ul>
+<ul class="list-group">
+    <div ng-repeat="website in model.websites">
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{website._id}}/page"> {{website.name}} </a>
+            <a href="#/user/{{model.userId}}/website/{{website._id}}">
+                <span class="pull-right glyphicon glyphicon-cog"/>
+            </a>
+        </li>
     </div>
-</div>
-
-<!-- <h1>Profile</h1> -->
-
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
+</ul>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user "></span>
-                </a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="../user/profile.view.client.html" class="pull-right navbar-icon-right">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
 </nav>

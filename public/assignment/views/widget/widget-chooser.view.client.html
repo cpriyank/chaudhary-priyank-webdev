@@ -1,94 +1,28 @@
-	<nav class="navbar  navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<p class="navbar-text pull-left">
-				<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link  l-r-padding-twenty">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-				</p>
-				<a class="navbar-brand">
-					Choose Widget
-				</a>
-			</div>
-		</div>
-	</nav>
-
-<div class="container padded-top adjusted-li">
-    <div class="list-group">
-        <ul class="list-group">
-            <li class="list-group-item no-border">
-            <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/HEADING" class="no-underline-links">Heading</a>
-            </li>
-            <li class="list-group-item no-border">
-            <a ng-click="model.futureFeature()" class="no-underline-links">Label</a>
-            </li>
-						<li class="list-group-item no-border">
-							<a ng-click="model.futureFeature()" class="no-underline-links">HTML</a>
-						</li>
-						<li class="list-group-item no-border">
-							<a ng-click="model.futureFeature()" class="no-underline-links">Text Input</a>
-						</li>
-						<li class="list-group-item no-border">
-							<a ng-click="model.futureFeature()" class="no-underline-links">Link</a>
-						</li>
-						<li class="list-group-item no-border">
-							<a ng-click="model.futureFeature()" class="no-underline-links">Button</a>
-						</li>
-						<li class="list-group-item no-border">
-														<a class="no-underline-links"
-															 href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/IMAGE">
-																Image
-														</a>
-												</li>
-												<li class="list-group-item no-border">
-														<a class="no-underline-links"
-															 href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/YOUTUBE">
-																YouTube
-														</a>
-												</li>
-												<li class="list-group-item no-border">
-														<a ng-click="model.futureFeature()" class="no-underline-links">Data Table</a>
-												</li>
-												<li class="list-group-item no-border">
-														<a ng-click="model.futureFeature()" class="no-underline-links">Repeater</a>
-												</li>
-						<!-- <li class="list-group-item no-border"> -->
-            <!-- <a href="widget-youtube.html" class="no-underline-links">Youtube</a> -->
-            <!-- </li> -->
-        </ul>
-				<div ng-show="model.featureMissingAlert" class="alert alert-info" role="alert">{{model.featureMissingAlert}}</div>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                Choose Widget
+            </a>
+        </div>
     </div>
-</div>
+</nav>
 
-        <!-- <h1>Profile</h1> -->
+<ul class="list-group">
+    <div ng-repeat="widgetType in model.widgetTypes">
+        <li class="list-group-item">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widgetType._id}}"> {{widgetType.widgetName}} </a>
+        </li>
+    </div>
+</ul>
 
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
-
-
-<nav class="navbar  navbar-fixed-bottom">
-	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="#/user/{{model.userId}}" class="pull-right navbar-icon-right">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
 </nav>

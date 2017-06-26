@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div ng-hide="model.widget.type" class="navbar-header">
-            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+            <a class="navbar-brand"
+               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 Widget Edit
             </a>
@@ -25,31 +26,18 @@
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="url"> URL </label>
-            <input class="form-control"
-                   type="text"
-                   id="url"
-                   name="url"
-                   placeholder="URL"
-                   value="gizmodo.com"
-                   ng-model="model.widget.url"/>
+            <label for="text"> Text </label>
+            <textarea class="form-control"
+                      type="text"
+                      id="text"
+                      name="text"
+                      placeholder="Text"
+                      ng-model="model.widget.text"></textarea>
         </div>
-        <div class="form-group">
-            <label for="width"> Width </label>
-            <input class="form-control"
-                   type="text"
-                   id="width"
-                   name="width"
-                   placeholder="80%"
-                   ng-model="model.widget.width"/>
-        </div>
-
-        <a ng-hide="model.widget.type" ng-click="model.deleteWidget()" class="btn btn-danger btn-block">
-            Delete
-        </a>
-
     </form>
-
+    <a ng-hide="model.widget.type" ng-click="model.deleteWidget()" class="btn btn-danger btn-block">
+        Delete
+    </a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

@@ -1,96 +1,84 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="row">
-        <div class="col-xs-4 hidden-xs">
-            <div class="container-fluid">
-                <a href="#/user/{{model.uid}}/website" class="navbar-text pull-left ">
-                    <span class="glyphicon glyphicon-chevron-left " aria-hidden="true"></span>
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}/website/new">
+                    <span class="glyphicon glyphicon-plus"></span>
                 </a>
-                <a href="#/user/{{model.uid}}/website/new" class="navbar-text  pull-right">
-                    <span class="glyphicon glyphicon glyphicon-plus " aria-hidden="true"></span>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-chevron-left"/>
+                Websites
                 </a>
-                <a class="navbar-brand ">
-                    Websites
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="navbar-text pull-right">
+                <a ng-click="model.updateWebsite(model.website)">
+                    <span class="glyphicon glyphicon-ok"></span>
                 </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/user/{{model.userId}}/website">
+                    <span class="glyphicon glyphicon-chevron-left"/>
+                    Edit Website
+                </a>
+
             </div>
         </div>
 
-        <div class="col-xs-8">
-            <div class="container-fluid">
-                <a href="#/user/{{model.uid}}/website" class="navbar-text pull-left  side-orientation">
-                    <span class="glyphicon glyphicon-chevron-left " aria-hidden="true"></span>
-                </a>
-                <a ng-click="model.editWebsite()" class="navbar-text pull-right ">
-                    <span class="glyphicon glyphicon glyphicon-ok " aria-hidden="true"></span>
-                </a>
-                <a class="navbar-brand">
-                    Edit Website
-                </a>
-            </div>
-        </div>
     </div>
 </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-4 hidden-xs">
-            <div class="list-group col-4-body">
-                <ul class="list-group">
-                    <li ng-repeat="website in model.websites" class="list-group-item no-border">
-                        <a class="no-underline-links" href="#/user/{{website.developerId}}/website/{{website._id}}/page">{{website.name}}</a>
-                        <a href="#/user/{{website.developerId}}/website/{{website._id}}" class="navbar-link pull-right">
-                            <span class="glyphicon glyphicon-cog"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
+<div class="col-sm-4 hidden-xs">
+    <ul class="list-group">
+        <div ng-repeat="website in model.websites">
+            <li class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{website._id}}/page"> {{website.name}} </a>
+                <a href="#/user/{{model.userId}}/website/{{website._id}}">
+                    <span class="pull-right glyphicon glyphicon-cog"/>
+                </a>
+            </li>
         </div>
-        <div class="vertical-separator hidden-xs"></div>
-        <div class="col-xs-8">
-            <div class="container-fluid col-8-body">
-                <form>
-                    <div class="form-group">
-                        <label for="edit-website-name">Name</label>
-                        <input ng-model="model.currentWebsiteName" type="text" class="form-control" id="edit-website-name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit-website-description">Description</label>
-                        <textarea ng-model="model.currentWebsiteDesc" id="edit-website-description" class="form-control" rows="5" placeholder="Description"></textarea>
-                    </div>
-                    <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block" id="edit-website-delete-btn">Delete</a>
-                </form>
-                <div ng-show="model.errorText" class="alert alert-danger padded-alert" role="alert">{{model.errorText}}</div>
-            </div>
-        </div>
-    </div>
+    </ul>
 </div>
-<!-- <h1>Profile</h1> -->
-
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
+<div class="col-sm-8 container">
+    <form>
+        <div class="form-group">
+            <label for="name"> Website Name </label>
+            <input class="form-control"
+                   type="text"
+                   id="name"
+                   name="name"
+                   placeholder="Name"
+                   value="Blogger"
+                   ng-model="model.website.name"/>
+        </div>
+        <div class="form-group">
+            <label for="description"> Website Description </label>
+            <textarea class="form-control"
+                      rows="5"
+                      id="description"
+                      name="description"
+                      placeholder="Description"
+                      ng-model="model.website.description">Bees are dying fast and that’s not good for people who like plants and food. Yesterday, the U.S. Fish and Wildlife Service determined that members of seven yellow-faced bees from the Hylaeus species require federal protection. If you’re in Hawaii where this brand of bee resides, you might want to think twice before swatting.
+            </textarea>
+        </div>
+    </form>
+    <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block">
+        Delete
+    </a>
+</div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user "></span>
-                </a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="../user/profile.view.client.html" class="pull-right navbar-icon-right">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+        </div>
+    </div>
 </nav>

@@ -1,98 +1,52 @@
-	<nav class="navbar  navbar-fixed-top">
-	<div class="row">¬
-         <div class="col-xs-4 hidden-xs">¬
-				 <div class="container-fluid">
-							<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left">
-									<span class="glyphicon glyphicon-chevron-left " aria-hidden="true"></span>
-							</a>
-							<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/new" class="navbar-text pull-right">
-									<span class="glyphicon glyphicon glyphicon-plus " aria-hidden="true"></span>
-							</a>
-							<a class="navbar-brand ">
-									Pages
-							</a>
-					</div>
-			</div>
-
-			<div class="col-xs-8">
-					<div class="container-fluid">
-							<a href="#/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-text pull-left side-orientation">
-									<span class="glyphicon glyphicon-chevron-left " aria-hidden="true"></span>
-							</a>
-							<a ng-click="model.editPage()" class="navbar-text pull-right">
-									<span class="glyphicon glyphicon-ok " aria-hidden="true"></span>
-							</a>
-							<a class="navbar-brand">
-									Edit Page
-							</a>
-					</div>
-			</div>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-text pull-right">
+			<a ng-click="model.updatePage(model.page)">
+				<span class="glyphicon glyphicon-ok"></span>
+			</a>
+		</div>
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				Edit Page
+			</a>
+		</div>
 	</div>
 </nav>
 
-<div class="container-fluid">
-	<div class="row">
-			<div class="col-xs-4 hidden-xs">
-					<div class="list-group col-4-body">
-							<ul class="list-group">
-									<li ng-repeat="page in model.pages" class="list-group-item no-border">
-											<a class="no-underline-links" href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}/widget">{{page.name}}</a>
-											<a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{page._id}}"
-												 class="navbar-link pull-right l-r-padding-twenty">
-													<span class="glyphicon glyphicon-cog"></span>
-											</a>
-									</li>
-							</ul>
-					</div>
-			</div>
-			<div class="vertical-separator"></div>
-			<div class="col-xs-8">
-					<div class="container-fluid col-8-body">
-							<form>
-									<div class="form-group">
-											<label for="edit-page-name">Name</label>
-											<input ng-model="model.pageName" type="text" class="form-control" id="edit-page-name" placeholder="Name">
-									</div>
-									<div class="form-group">
-											<label for="edit-page-title">Title</label>
-											<input ng-model="model.pageTitle" type="text" class="form-control" id="edit-page-title" placeholder="Title">
-									</div>
-									<a ng-click="model.deletePage()" class="btn btn-danger btn-block" id="edit-page-delete-btn">Delete</a>
-							</form>
-							<div ng-show="model.errorText" class="alert alert-danger padded-alert" role="alert">{{model.errorText}}</div>
-					</div>
-			</div>
-	</div>
+<div class="container">
+	<form>
+		<div class="form-group">
+			<label for="name"> Name </label>
+			<input class="form-control"
+			type="text"
+			id="name"
+			name="name"
+			placeholder="Name"
+			value="Blog Post"
+			ng-model="model.page.name"/>
+		</div>
+		<div class="form-group">
+			<label for="title"> Title </label>
+			<input class="form-control"
+			type="text"
+			id="title"
+			name="title"
+			placeholder="Page Title"
+			ng-model="model.page.description"/>
+		</div>
+	</form>
+	<a ng-click="model.deletePage()" class="btn btn-danger btn-block">
+		Delete
+	</a>
 </div>
 
-        <!-- <h1>Profile</h1> -->
-
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
-
-<nav class="navbar  navbar-fixed-bottom">
-	<a href="#/user/{{model.uid}}" class="pull-right navbar-link">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a href="#/user/{{model.userId}}" class="pull-right navbar-icon-right">
+				<span class="glyphicon glyphicon-user"></span>
+			</a>
+		</div>
+	</div>
 </nav>
