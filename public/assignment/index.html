@@ -1,172 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="WebAppMaker">
 <head>
-    <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
-		<link href="./css/overrides.css" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 		<!-- Use app.js and config.js -->
     <script src="app.js"></script>
-		<script src="config.js"></script>
-		<script src="views/user/user.controller.client.js"></script>
-				<script src="views/website/website.controller.client.js"></script>
-				<script src="views/page/page.controller.client.js"></script>
-				<script src="views/widget/widget.controller.client.js"></script>
-				<!--Services-->
-				<script src="services/user.service.client.js"></script>
-				<script src="services/website.service.client.js"></script>
-				<script src="services/page.service.client.js"></script>
-				<script src="services/widget.service.client.js"></script>
-    <title>Assignment</title>
+    <script src="config.js"></script>
+    <script src="views/user/login.controller.client.js"></script>
+    <script src="views/user/profile.controller.client.js"></script>
+    <script src="views/user/register.controller.client.js"></script>
+    <script src="views/website/website.controller.client.js"></script>
+    <script src="views/page/page.controller.client.js"></script>
+    <script src="views/widget/widget.controller.client.js"></script>
+		<!--Services-->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+    <script src="directives/jga-directives.js"></script>
+    <link href="css/style.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Assignment Home Page</title>
 </head>
 <body>
-
-<div ng-view></div>
-<!-- 	<nav class="navbar navbar-default navbar-fixed-top"> -->
-<!-- 		<div class="container-fluid"> -->
-<!-- 			<div class="navbar-header"> -->
-<!-- 				<p class="navbar-text pull-left"> -->
-<!-- 				<a href="./user/register.html" class="navbar-link  l-r-padding-twenty"> -->
-<!-- 					<span class="glyphicon glyphicon-chevron-left"></span> -->
-<!-- 				</a> -->
-<!-- 				</p> -->
-<!-- 				<a class="navbar-brand"> -->
-<!-- 					Links -->
-<!-- 				</a> -->
-<!-- 			</div> -->
-<!-- 			<p class="navbar-text pull-right"> -->
-<!-- 			<a href="./user/register.html" class="navbar-link  l-r-padding-twenty"> -->
-<!-- 				<span class="glyphicon glyphicon-plus"> -->
-<!-- 				</span> -->
-<!-- 			</a> -->
-<!-- 			</p> -->
-<!-- 		</div> -->
-<!-- 	</nav> -->
-
-<!-- <div class="container padded-top adjusted-li"> -->
-<!--         <div class="list-group"> -->
-<!--                     <ul class="list-group"> -->
-<!--             <li class="list-group-item no-border"> -->
-<!--             <a href="./page/page-list.html" class="no-underline-links">Page list</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 							<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--             <li class="list-group-item no-border"> -->
-<!--             <a href="./page/page-edit.html" class="no-underline-links">Page edit</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--             <li class="list-group-item no-border"> -->
-<!--             <a href="./page/page-new.html" class="no-underline-links">Page new</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--             <li class="list-group-item no-border"> -->
-<!--             <a href="./user/login.html" class="no-underline-links">User login</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--             <li class="list-group-item no-border"> -->
-<!--             <a href="./user/register.html" class="no-underline-links">User register</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                         <li class="list-group-item no-border"> -->
-<!--             <a href="./user/profile.html" class="no-underline-links">User profile</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                         <li class="list-group-item no-border"> -->
-<!--             <a href="./website/website-edit.html" class="no-underline-links">Website edit</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                         <li class="list-group-item no-border"> -->
-<!--             <a href="./website/website-list.html" class="no-underline-links">Website list</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                         <li class="list-group-item no-border"> -->
-<!--             <a href="./website/website-new.html" class="no-underline-links">Website new</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                                     <li class="list-group-item no-border"> -->
-<!--             <a href="./widget/widget-chooser.html" class="no-underline-links">Widget Chooser</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                                     <li class="list-group-item no-border"> -->
-<!--             <a href="./widget/widget-heading.html" class="no-underline-links">Widget heading</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                                     <li class="list-group-item no-border"> -->
-<!--             <a href="./widget/widget-image.html" class="no-underline-links">Widget image</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                                     <li class="list-group-item no-border"> -->
-<!--             <a href="./widget/widget-youtube.html" class="no-underline-links">Widget youtube</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--                                     <li class="list-group-item no-border"> -->
-<!--             <a href="./widget/widget-list.html" class="no-underline-links">Widget list</a> -->
-<!--                             <a href="website-edit.html" class="navbar-link pull-right l-r-padding-twenty"> -->
-<!-- 						<span class="glyphicon glyphicon-cog"></span> -->
-<!-- 						</a> -->
-<!--             </li> -->
-<!--             </ul> -->
-<!--         </div> -->
-<!-- </div> -->
-        <!-- <h1>Profile</h1> -->
-
-        <!-- <form> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="username">Username</label> -->
-        <!--         <input type="text" class="form-control" id="username" placeholder="Username"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="email">Email address</label> -->
-        <!--         <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="first-name">First Name</label> -->
-        <!--         <input type="text" class="form-control" id="first-name" placeholder="Alice"> -->
-        <!--     </div> -->
-        <!--     <div class="form-group"> -->
-        <!--         <label for="last-name">Last Name</label> -->
-        <!--         <input type="text" class="form-control" id="last-name" placeholder="Wonderland"> -->
-        <!--     </div> -->
-        <!-- </form> -->
-
-        <!-- <a class="btn btn-primary btn-block" -->
-        <!--    href="website-list.html">Websites</a> -->
-        <!-- <a class="btn btn-danger  btn-block" -->
-        <!--    href="login.html">Logout</a> -->
-
-<!-- <nav class="navbar navbar-default navbar-fixed-bottom"> -->
-<!--                 <a href="../user/profile.html" class="pull-right navbar-link"> -->
-<!--                     <span class="glyphicon glyphicon-user "></span> -->
-<!--                 </a> -->
-<!-- </nav> -->
-
+<!-- <i class="fa fa-address-book fa-5x"></i> -->
+    <div ng-view></div>
 </body>
 </html>
