@@ -1,20 +1,32 @@
 <div class="container">
-<div ng-show="model.registerError" class="alert alert-danger" role="alert">{{model.registerError}}</div>
-	<h1>Register</h1>
-	<input type="text"
-				class="form-control"
-		placeholder="username"
-		ng-model="model.username"/>
-	<input type="password"
-				class="form-control"
-		placeholder="password"
-		ng-model="model.password"/>
-	<input type="password"
-				class="form-control"
-		placeholder="very password"
-		ng-model="model.secondPassword"/>
-	<a ng-click="model.register(model.username, model.password, model.secondPassword)"
-		class="btn btn-primary btn-block">Register</a>
-	<a class="btn btn-danger  btn-block"
-		href="#/login">Cancel</a>
+    <h1>Register</h1>
+    <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+    <input type="text"
+           class="form-control"
+           placeholder="username"
+           ng-model="model.username"/>
+    <input type="password"
+           class="form-control"
+           placeholder="password"
+           ng-model="model.password"/>
+    <input type="password"
+           class="form-control"
+           placeholder="very password"
+           ng-model="model.repassword"/>
+    <input type="text"
+           class="form-control"
+           placeholder="First Name"
+           ng-model="model.firstName"/>
+    <input type="text"
+           class="form-control"
+           placeholder="Last Name"
+           ng-model="model.lastName"/>
+    <input type="text"
+           class="form-control"
+           placeholder="Email"
+           ng-model="model.email"/>
+    <a ng-click="model.register(model.username, model.password, model.repassword, model.firstName, model.lastName, model.email)"
+       class="btn btn-primary btn-block">Register</a>
+    <a class="btn btn-danger  btn-block"
+       href="#/login">Cancel</a>
 </div>
