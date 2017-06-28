@@ -1,174 +1,79 @@
+/* Space out content a bit */
 body {
-    margin-top: 40px;
-		background-color:#fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-font-family: 'Lato', sans-serif;
-color: #111;
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-h1, h2, h3 {
-text-transform: uppercase;
+/* Custom page header */
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
 }
 
-a {
-color: #4717f6;
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
 }
 
-li {
-color: #a239ca;
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
 }
 
-.navbar-brand {
-font-family: 'Lato', sans-serif;
-text-transform: uppercase;
-color: 959595; 
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
 }
 
-/* navbar */
-.navbar-default, .navbar-brand{
-	font-family: 'Lato', sans-serif;
-	text-transform: uppercase;
-    background-color: transparent;
-    border: none;
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
 }
 
-label {
-	font-family: 'Lato', sans-serif;
-	text-transform: uppercase;
-}
-
-a.no-underline-links {
-    text-decoration: none;
-}
-
-.navbar-fixed-bottom .navbar-link{
-    margin-right: 5%;
-    margin-top: 18px;
-}
-
-.vertical-separator{
-    border-top: 20px;
-    width:1px;
-    background-color: transparent;
-		color: transparent;
-    left: 33%;
-    position: relative;
-    z-index: 10;
-    top:0;
-    bottom: 0;
-}
-
-input.form-control {
-    margin-bottom: 7px;
-}
-
-
-.l-r-padding-twenty{
-    padding-right:20px;
-    padding-left:20px;
-}
-
-.padded-top {
-    padding-top: 5%;
-    padding-bottom: 10%;
-}
-
-.adjusted-li{
-    text-align: justify;
-    font-size: 1.5em;
-    margin-top: 5%;
-    margin-bottom: 5%;
-}
-
-.relative-position {
-position : relative;
-}
-
-.side-orientation{
-    padding-left: 35px;
-    padding-right: 15px;
-    display: none;
-}
-
-@media all and (max-device-width:600px) and (orientation:portrait) {
-    .col-xs-4{
-        display: none;
-    }
-    div.vertical-separator{
-        display: none;
-    }
-    .col-xs-8{
-        width: 100%;
-    }
-    .row .col-xs-8 .container-fluid .side-orientation{
-        display: block;
-    }
-}
-
-@media all and (min-device-width:400px) and (orientation:landscape) {
-    .row .col-xs-8 .container-fluid .side-orientation{
-        display: none;
-        width: 0%;
-    }
-}
-
-li.no-border  {
-    border: 0 none;
-}
-
-.widget-image {
-    display: inline-block;
-    width: 85%;
-}
-
-.widget-adj{
-top: 0px;
-right : 0px;
-position: absolute;
-z-index: 20;
-padding-right : 0px;
-}
-
-/* Variations in portrait modes */
-
-.col-xs-8 .navbar-brand{
-    padding-left: 20px;
-}
-
-.col-xs-8 .container-fluid{
-    padding-left: 0px;
-}
-
-.col-xs-4 .col-4-body, .col-xs-8 .col-8-body{
-    padding-top: 30px;
-    padding-bottom: 60px;
-}
-
-.col-xs-4 li{
-    padding-left: 0;
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
     padding-right: 0;
-}
-
-.navbar .col-xs-8{
     padding-left: 0;
-}
-
-.navbar .col-xs-8 .pull-right{
-    padding-right: 20px;
-}
-
-.padded-alert.alert-success, .padded-alert.alert-danger{
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-.padded-widget-list{
-    padding-top: 22px;
-    padding-bottom: 7px;
-}
-
-.padded-widget-list-nav{
-    padding-top: 50px;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
 }
