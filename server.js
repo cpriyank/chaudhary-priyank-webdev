@@ -13,6 +13,6 @@ require("./assignment/app.js")(app);
 
 var port      = process.env.PORT || 3000;
 var ipaddress = process.env.IP;
-console.log('Hello! Server running on localhost port 3000')
+console.log('Hello! Server running on localhost port 3000');
 
 app.listen(port, ipaddress);
