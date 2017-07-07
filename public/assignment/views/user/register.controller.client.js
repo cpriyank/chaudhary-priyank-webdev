@@ -23,7 +23,7 @@
             promise
                 .success(function(user){
                     if(user) {
-                        $location.url("/");
+                        $location.url("/user/" + user._id);
                     } else {
                         vm.error = "Username taken!"
                     }
