@@ -7,9 +7,9 @@
 
     function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
-        vm.userId = parseInt($routeParams["uid"]);
-        vm.websiteId = parseInt($routeParams["wid"]);
-        vm.pageId = parseInt($routeParams["pid"]);
+        vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        vm.pageId = $routeParams["pid"];
         vm.checkSafeHtml = checkSafeHtml;
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
         vm.sortItem = sortItem;
@@ -45,14 +45,15 @@
 
     function NewWidgetController($routeParams, $location, WidgetService) {
         var vm = this;
-        vm.userId = parseInt($routeParams["uid"]);
-        vm.websiteId = parseInt($routeParams["wid"]);
-        vm.pageId = parseInt($routeParams["pid"]);
+        vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        vm.pageId = $routeParams["pid"];
 
         function init() {
             WidgetService
                 .getWidgetTypes()
                 .success(function (widgetTypes) {
+                    // a widgetType has 'wid' and 'type'
                     vm.widgetTypes = widgetTypes;
                 })
                 .error(function () {
@@ -65,10 +66,10 @@
 
     function EditWidgetController($location, $routeParams, WidgetService) {
         var vm = this;
-        vm.userId = parseInt($routeParams["uid"]);
-        vm.websiteId = parseInt($routeParams["wid"]);
-        vm.pageId = parseInt($routeParams["pid"]);
-        vm.widgetId = parseInt($routeParams["wgid"]);
+        vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        vm.pageId = $routeParams["pid"];
+        vm.widgetId = $routeParams["wgid"];
         vm.deleteWidget = deleteWidget;
         vm.updateWidget = updateWidget;
         vm.createWidget = createWidget;
