@@ -97,6 +97,10 @@
         }
 
         function updateWidget(widget) {
+            if(typeof(widget) === "undefined" || !widget.name){
+                vm.error = "Widget name is required";
+                return;
+            }
             WidgetService
                 .updateWidget(vm.widgetId, widget)
                 .success(function () {
@@ -108,6 +112,10 @@
         }
 
         function createWidget(widget) {
+            if(typeof(widget) === "undefined" || !widget.name){
+                vm.error = "Widget name is required";
+                return;
+            }
             WidgetService
                 .createWidget(vm.pageId, widget)
                 .success(function () {

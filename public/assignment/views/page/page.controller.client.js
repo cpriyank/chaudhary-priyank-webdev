@@ -30,6 +30,10 @@
         vm.createPage = createPage;
 
         function createPage(page) {
+            if(typeof(page) === "undefined" || !page.name){
+                vm.error = "Page name is required";
+                return;
+            }
             PageService
                 .createPage(vm.websiteId, page)
                 .success(function(){
@@ -61,6 +65,10 @@
         }
 
         function updatePage(page) {
+            if(typeof(page) === "undefined" || !page.name){
+                vm.error = "Page name is required";
+                return;
+            }
             PageService
                 .updatePage(vm.pageId, page)
                 .success(function(){

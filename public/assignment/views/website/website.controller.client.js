@@ -28,6 +28,10 @@
         vm.createWebsite = createWebsite;
 
         function createWebsite(website) {
+            if(typeof(website) === "undefined" || !website.name){
+                vm.error = "Website name is required";
+                return;
+            }
             WebsiteService
                 .createWebsite(vm.userId, website)
                 .success(function() {
@@ -78,6 +82,10 @@
         }
 
         function updateWebsite(website) {
+            if(typeof(website) === "undefined" || !website.name){
+                vm.error = "Website name is required";
+                return;
+            }
             WebsiteService
                 .updateWebsite(vm.websiteId, website)
                 .success(function(){
