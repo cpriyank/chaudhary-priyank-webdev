@@ -77,6 +77,8 @@ module.exports = function (app, model) {
         var pageId = req.params.pageId;
         var widget = req.body;
         delete widget.wid;
+        // console.log(widget.url);
+        // console.log(widget.type);
         model.widgetModel
             .createWidget(pageId, widget)
             .then(
@@ -160,7 +162,7 @@ module.exports = function (app, model) {
         var pageId = req.params.pageId;
         var start = req.query.initial;
         var end = req.query.final;
-        console.log([start, end]);
+        // console.log([start, end]);
         model.widgetModel
             .reorderWidget(pageId, start, end)
             .then(
