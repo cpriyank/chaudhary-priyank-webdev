@@ -3,11 +3,15 @@
         .module("WebAppMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.register = register;
 
         function register(username, password, repassword, firstName, lastName, email) {
+            if(!username || !password) {
+                vm.error = "Username and password is required";
+                return;
+            }
             if(password != repassword) {
                 vm.error = "Passwords do not match";
                 return;
@@ -23,6 +27,7 @@
             promise
                 .success(function(user){
                     if(user) {
+                        $rootScope.currentUser = user;
                         $location.url("/user/" + user._id);
                     } else {
                         vm.error = "Username taken!"
