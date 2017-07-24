@@ -274,9 +274,6 @@ module.exports = function(app) {
 	function facebookStrategy(token, refreshToken, profile, done) {
 		// Facebook doesn't supply email with its profile json (at least
 		// for me).
-		// Uncomment the line below to check
-		// var email = profile.emails[0].value;
-		// var emailParts = email.split("@");
 		userModel
 			.findUserByFacebookId(profile.id)
 			.then(
@@ -284,17 +281,17 @@ module.exports = function(app) {
 					if(user) {
 						return done(null, user);
 					} else {
+						var dispNames = profile.displayName.split(' ');
+						var secondName = "NoSecondName"
+						if dispNames.length > 1 {
+							secondName = dispNames[1]
+						}
 						var newFbUser = {
-							username: "chiman",
+							username: dispNames[0],
 							password: "0",
-							firstName: "chimanbhai",
-							lastName: "choti",
-							email: "chiman@choti.com",
-							// username:  profile.displayName.split(' ')[0],
-							// password: "0",
-							// firstName: profile.displayName.split(' ')[0],
-							// lastName:  profile.displayName.split(' ')[1],
-							// // email:     email,
+							firstName: dispNames[0],
+							lastName: secondName,
+							email: "facebookDoesNotAlwaysReturnEmail@SoChangeThis.com",
 							facebook: {
 								id:    profile.id,
 								token: token
@@ -324,16 +321,20 @@ module.exports = function(app) {
 			.then(
 				function(user) {
 					if(user) {
+					console.log(profile);
 						return done(null, user);
 					} else {
-						console.log(profile);
+					var dispNames = profile.displayName.split(' ');
+					var secondName = "NoSecondName"
+					if dispNames.length > 1 {
+						secondName = dispNames[1]
+					}
 						var newTwitterUser = {
-							username: "chiman",
+							username: profile.username,
 							password: "0",
-							firstName: "chimanbhai",
-							lastName: "choti",
-							email: "chiman@choti.com",
-							// email:     email,
+							firstName: dispNames[0],
+							lastName: secondName,
+							email: "twitterDoesNotAlwaysReturnEmail@SoChangeThis.com",
 							twitter: {
 								id:    profile.id,
 								token: token

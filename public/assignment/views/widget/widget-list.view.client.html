@@ -20,11 +20,11 @@
 
 <div jga-sortable class="container-fluid">
 	<div ng-repeat="widget in model.widgets" class="widget-adj">
-		<div class="wd-handle">
+		<div>
 			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
-				<span class="glyphicon glyphicon-cog"></span>
+				<span class="glyphicon glyphicon-cog pull-right widget-handle"></span>
 			</a>
-			<span class="glyphicon glyphicon-align-justify"></span>
+			<span class="glyphicon glyphicon-align-justify pull-right widget-handle"></span>
 		</div>
 		<div ng-include="model.getWidgetUrlForType(widget.widgetType)"></div>
 	</div>
