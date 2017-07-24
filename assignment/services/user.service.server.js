@@ -283,7 +283,7 @@ module.exports = function(app) {
 					} else {
 						var dispNames = profile.displayName.split(' ');
 						var secondName = "NoSecondName"
-						if dispNames.length > 1 {
+						if (dispNames.length > 1) {
 							secondName = dispNames[1]
 						}
 						var newFbUser = {
@@ -326,7 +326,7 @@ module.exports = function(app) {
 					} else {
 					var dispNames = profile.displayName.split(' ');
 					var secondName = "NoSecondName"
-					if dispNames.length > 1 {
+					if (dispNames.length > 1) {
 						secondName = dispNames[1]
 					}
 						var newTwitterUser = {
