@@ -3,26 +3,36 @@
   "version": "1.0.0",
   "description": "Web Dev at Northeastern University",
   "main": "server.js",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.13.4",
-    "express-session": "^1.15.5",
-    "mongoose": "^4.4.15",
-    "multer": "^1.3.0",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "passport-google-oauth": "^1.0.0",
-    "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4",
-    "q": "^1.5.0"
+  "directories": {
+    "test": "test"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Jose G. Annunziato",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pronoid/chaudhary-priyank-webdev.git"
+  },
+  "author": "Priyank Chaudhary",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pronoid/chaudhary-priyank-webdev/issues"
+  },
+  "homepage": "https://github.com/pronoid/chaudhary-priyank-webdev#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "mongoose": "^4.11.6",
+    "multer": "^1.3.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-auth": "^1.0.2",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "q": "^1.5.0"
+  }
 }
