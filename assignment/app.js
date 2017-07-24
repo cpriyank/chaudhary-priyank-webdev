@@ -3,7 +3,10 @@ module.exports = function(app) {
 	var connectionString =  null;
 
 	if (process.env.MONGODB_URI) {
- connectionString = 'mongodb://heroku_4l46z2vg:s27f4o6t21svjqf1j6bf38ast9@ds149221.mlab.com:49221/heroku_4l46z2vg'
+		var username = process.env.MLAB_USERNAME_WEBDEV; // get from environment
+		var password = process.env.MLAB_PASSWORD_WEBDEV;
+		connectionString = 'mongodb://' + username + ':' + password;
+		connectionString += '@ds149221.mlab.com:49221/heroku_4l46z2vg';
 	}
 	else
 	{
