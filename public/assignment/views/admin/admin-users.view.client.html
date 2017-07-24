@@ -1,0 +1,83 @@
+<div class="container-fluid">
+	<h1>Users</h1>
+
+	<ul class="list-group">
+
+		<li class="list-group-item active">
+			<div class="row">
+				<div class="col-xs-2">
+					Username
+				</div>
+
+				<div class="col-xs-3">
+					First Name
+				</div>
+
+				<div class="col-xs-3">
+					Last Name
+				</div>
+
+				<div class="col-xs-3">
+					Roles
+				</div>
+
+			</div>
+		</li>
+
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-xs-2">
+					<input ng-model="model.user.username"
+					class="form-control"/>
+				</div>
+
+				<div class="col-xs-3">
+					<input ng-model="model.user.firstName"
+					class="form-control"/>
+				</div>
+
+				<div class="col-xs-3">
+					<input ng-model="model.user.lastName"
+					class="form-control"/>
+				</div>
+
+				<div class="col-xs-3">
+					<input ng-model="model.user.roles"
+					class="form-control"/>
+				</div>
+
+				<div class="col-xs-1">
+					<span ng-click="model.createUser(model.user); model.user = {}"
+						class="glyphicon glyphicon-plus pull-right"></span>
+					<span ng-click="model.updateUser(model.user); model.user = {}"
+						class="glyphicon glyphicon-ok pull-right"></span>
+				</div>
+
+			</div>
+		</li>
+
+
+		<li ng-repeat="user in model.users" class="list-group-item">
+			<div class="row">
+				<div class="col-xs-2">
+					{{user.username}}
+				</div>
+				<div class="col-xs-3">
+					{{user.firstName}}
+				</div>
+				<div class="col-xs-3">
+					{{user.lastName}}
+				</div>
+				<div class="col-xs-3">
+					{{user.roles}}
+				</div>
+				<div class="col-xs-1">
+					<span ng-click="model.selectUser(user)"
+						class="glyphicon glyphicon-pencil pull-right"></span>
+					<span ng-click="model.deleteUser(user)"
+						class="glyphicon glyphicon-remove pull-right"></span>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

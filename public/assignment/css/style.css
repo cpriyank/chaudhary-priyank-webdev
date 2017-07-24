@@ -40,60 +40,113 @@ label {
 }
 
 a:hover {
-    text-decoration: none;
+		text-decoration: none;
 }
 
 input.form-control {
-    margin-bottom: 5px;
+		margin-bottom: 5px;
 }
 
 body {
-    padding-top: 60px;
-    padding-bottom: 60px;
+		padding-top: 60px;
+		padding-bottom: 60px;
 }
 
 .navbar-icon-right {
-    margin-top: 16px;
-    margin-right: 14px;
+		margin-top: 16px;
+		margin-right: 14px;
 }
 
 .list-group-item {
-    border: none;
+		border: none;
 }
 
 .relative-position {
-    position: relative;
+		position: relative;
 }
 
 .absolute-position {
-    position: absolute;
+		position: absolute;
 }
 
 .list-element-menu {
+		top: 0px;
+		right: 0px;
+		background-color: white;
+}
+
+.left-scroll {
+   position: absolute;
+    top: 50px;
+    bottom: 0px;
+    overflow: scroll;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.widget-adj {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.widget-handle {
+	position: absolute;
+    background-color: white;
     top: 0px;
     right: 0px;
-    background-color: white;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-bottom-left-radius: 10px;
+    opacity: 0.8;
+    z-index: 20;
 }
 
 @media all and (max-device-width:600px) and (orientation:portrait) {
-    .col-xs-4{
-        display: none;
-    }
-    div.vertical-separator{
-        display: none;
-    }
-    .col-xs-8{
-        width: 100%;
-    }
-    .row .col-xs-8 .container-fluid .side-orientation{
-        display: block;
-    }
+		.col-xs-4{
+				display: none;
+		}
+		div.vertical-separator{
+				display: none;
+		}
+		.col-xs-8{
+				width: 100%;
+		}
+		.row .col-xs-8 .container-fluid .side-orientation{
+				display: block;
+		}
 }
 
 @media all and (min-device-width:400px) and (orientation:landscape) {
-    .row .col-xs-8 .container-fluid .side-orientation{
-        display: none;
-        width: 0%;
+		.row .col-xs-8 .container-fluid .side-orientation{
+				display: none;
+				width: 0%;
+		}
+}
+input.form-control {
+    margin-bottom: 5px;
+}
+@media (min-width: 768px){
+    .col-sm-8 {
+        width: 66.66666667%;
+        margin-left: 33.3%;
     }
 }
 
+input.form-control,
+textarea.form-control,
+select.form-control {
+    margin-bottom: 8px;
+}
+
+.youtube-widget {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+}
+.youtube-widget iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

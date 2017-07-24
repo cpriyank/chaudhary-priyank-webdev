@@ -1,20 +1,22 @@
 (function () {
 	angular
 		.module("WebAppMaker")
-		.factory("PageService", PageService);
+		.factory('PageService', PageService);
 
-	function PageService($http){
-		var services = {
-			'createPage' : createPage,
-			'findPageByWebsiteId' : findPageByWebsiteId,
-			'findPageById' : findPageById,
-			'updatePage' : updatePage,
-			'deletePage' : deletePage,
-			'deletePagesByWebsite' : deletePagesByWebsite
+	function PageService($http) {
+
+		var api = {
+			"createPage": createPage,
+			"findAllPagesForWebsite": findAllPagesForWebsite,
+			"findPageById": findPageById,
+			"updatePage": updatePage,
+			"deletePage": deletePage,
+			"deletePageFromWebsite": deletePageFromWebsite,
+			"deletePagesByWebsite" : deletePagesByWebsite
 		};
-		return services;
+		return api;
 
-		function createPage(websiteId, page){
+		function createPage(websiteId, page) {
 			var url = "/api/website/" + websiteId + "/page";
 			return $http.post(url, page)
 				.then(function (response) {
@@ -22,15 +24,7 @@
 				});
 		}
 
-		function findPageById(pageId){
-			var url = "/api/page/" + pageId;
-			return $http.get(url)
-				.then(function (response) {
-					return response.data;
-				});
-		}
-
-		function findPageByWebsiteId(websiteId) {
+		function findAllPagesForWebsite(websiteId) {
 			var url = "/api/website/" + websiteId + "/page";
 			return $http.get(url)
 				.then(function (response) {
@@ -38,17 +32,32 @@
 				});
 		}
 
-		function updatePage(pageId, page){
-			var url = "/api/page/" + pageId;
+		function findPageById(pageId) {
+			var url = "/api/page/" + pageId ;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function updatePage(pageId, page) {
+			var url = "/api/page/"+ pageId;
 			return $http.put(url, page)
 				.then(function (response) {
 					return response.data;
 				});
 		}
 
-		function deletePage(websiteId, pageId) {
+		function deletePage(pageId) {
+			var url = "/api/page/"+ pageId;
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function deletePageFromWebsite(websiteId, pageId) {
 			var url = "/api/website/" + websiteId + "/page/" + pageId;
-			console.log(url);
 			return $http.delete(url)
 				.then(function (response) {
 					return response.data;
@@ -57,7 +66,10 @@
 
 		function deletePagesByWebsite(websiteId){
 			var url = "/api/website/" + websiteId + "/page";
-			return $http.delete(url);
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
 		}
 	}
 })();

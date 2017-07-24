@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid row">
+		<div class="navbar-text pull-left">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+				<span class="glyphicon glyphicon-chevron-left">
+				</span>
+			</a>
+		</div>
+		<div class="navbar-text pull-right">
+			<a ng-click="model.updateWidget()">
+				<span class="glyphicon glyphicon-ok">
+				</span>
+			</a>
+		</div>
+		<a class="navbar-brand">
+			Heading Editor
+		</a>
+	</div>
+</nav>
+
+<div class="container-fluid">
+
+	<div ng-show="model.error"
+		class="alert alert-danger"
+		role="alert">{{model.error}}
+	</div>
+
+	<label for="name">Name</label>
+	<input id="name"
+	ng-model="model.widgetName"
+	class="form-control"/>
+
+	<label for="text">Text</label>
+	<input id="text"
+	ng-model="model.widgetText"
+	class="form-control"/>
+
+	<label>Size</label>
+	<select ng-model="model.widgetSize" class="form-control">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+	</select>
+
+	<a ng-click="model.deleteWidget()"
+		class="btn btn-danger btn-block">
+		Delete
+	</a>
+</div>
+
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
+</nav>

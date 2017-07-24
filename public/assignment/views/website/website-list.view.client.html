@@ -1,22 +1,24 @@
 <nav class="navbar navbar-fixed-top">
 	<div class="container-fluid">
-		<a href="#!/profile"
-			class="navbar-link navbar-text pull-left">
-			<span class="glyphicon glyphicon-chevron-left"></span>
-		</a>
+		<p class="navbar-text pull-left">
+			<a href="#!/profile"
+				class="navbar-link">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+		</p>
 		<a class="navbar-brand">
 			Websites
 		</a>
-		<a href="#!/website/new"
-			class="navbar-link navbar-text pull-right">
+		<a href="#!/website/new" class="navbar-link navbar-text pull-right">
 			<span class="glyphicon glyphicon-plus"></span>
 		</a>
 	</div>
 </nav>
 
-<div class="container-fluid">
-	<ul class="list-group">
-		<li ng-repeat="website in model.websites" class="list-group-item">
+<div class="container">
+	<div class="list-group">
+		<li ng-repeat="website in model.websites"
+			class="list-group-item">
 			<a href="#!/website/{{website._id}}">
 				<span class="glyphicon glyphicon-cog pull-right"></span>
 			</a>
@@ -24,9 +26,10 @@
 				{{website.name}}
 			</a>
 		</li>
-	</ul>
+	</div>
 </div>
 
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
 <nav class="navbar navbar-fixed-bottom">
 	<div class="container-fuild">
 		<a href="#!/profile" class="navbar-link navbar-text pull-right">

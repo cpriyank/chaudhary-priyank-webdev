@@ -3,8 +3,16 @@
 		.module("WebAppMaker")
 		.config(configuration);
 
-	function configuration($routeProvider, $sceDelegateProvider) {
+	function configuration($routeProvider) {
 		$routeProvider
+			.when('/', {
+				templateUrl : "views/home/home.view.client.html",
+				controller: "HomeController",
+				controllerAs: "model",
+				resolve: {
+					currentUser: checkCurrentUser
+				}
+			})
 			.when('/login', {
 				templateUrl : "views/user/login.view.client.html",
 				controller: "LoginController",
@@ -15,20 +23,26 @@
 				controller: "RegisterController",
 				controllerAs: "model"
 			})
+			.when('/admin', {
+				templateUrl : "views/admin/admin.view.client.html",
+				resolve: {
+					currentUser: checkAdmin
+				}
+			})
+			.when('/admin/user', {
+				templateUrl : "views/admin/admin-users.view.client.html",
+				controller: "AdminUserController",
+				controllerAs: "model",
+				resolve: {
+					currentUser: checkAdmin
+				}
+			})
 			.when('/profile', {
 				templateUrl : "views/user/profile.view.client.html",
 				controller: "ProfileController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
-				}
-			})
-			.when('/admin', {
-				templateUrl : "views/admin/admin.view.client.html",
-				controller: "AdminController",
-				controllerAs: "model",
-				resolve: {
-					admin: checkAdmin
+					currentUser: checkLoggedIn
 				}
 			})
 			.when('/website', {
@@ -36,7 +50,7 @@
 				controller: "WebsiteListController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
 			.when('/website/new', {
@@ -44,143 +58,131 @@
 				controller: "NewWebsiteController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid', {
+			.when('/website/:websiteId', {
 				templateUrl : "views/website/website-edit.view.client.html",
 				controller: "EditWebsiteController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page', {
+			.when('/website/:websiteId/page', {
 				templateUrl : "views/page/page-list.view.client.html",
 				controller: "PageListController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page/new', {
+			.when('/website/:websiteId/page/new', {
 				templateUrl : "views/page/page-new.view.client.html",
 				controller: "NewPageController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page/:pid', {
+			.when('/website/:websiteId/page/:pageId', {
 				templateUrl : "views/page/page-edit.view.client.html",
 				controller: "EditPageController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page/:pid/widget', {
+			.when('/website/:websiteId/page/:pageId/widget', {
 				templateUrl : "views/widget/widget-list.view.client.html",
 				controller: "WidgetListController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page/:pid/widget/new', {
+			.when('/website/:websiteId/page/:pageId/widget/new', {
 				templateUrl : "views/widget/widget-chooser.view.client.html",
 				controller: "NewWidgetController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-			.when('/website/:wid/page/:pid/widget/search/', {
-				templateUrl : "views/widget/widget-flickr-search.view.client.html",
-				controller: "FlickrImageSearchController",
-				controllerAs: "model",
-				resolve: {
-					loggedin: checkLoggedin
-				}
-			})
-			.when('/website/:wid/page/:pid/widget/create/:wtype', {
-				templateUrl : "views/widget/widget-new.view.client.html",
-				controller: "CreateWidgetController",
-				controllerAs: "model",
-				resolve: {
-					loggedin: checkLoggedin
-				}
-			})
-			.when('/website/:wid/page/:pid/widget/:wgid', {
+			.when('/website/:websiteId/page/:pageId/widget/:widgetId', {
 				templateUrl : "views/widget/widget-edit.view.client.html",
 				controller: "EditWidgetController",
 				controllerAs: "model",
 				resolve: {
-					loggedin: checkLoggedin
+					currentUser: checkLoggedIn
 				}
 			})
-		// .when("/home", {
-		//     templateUrl : "./views/home/templates/home.html",
-		//     controller: "HomepageController",
-		//     controllerAs: "model",
-		//     resolve: {
-		//         currentUser: checkCurrentUser
-		//     }
-		// })
+			.when('/website/:websiteId/page/:pageId/widget/create/:widgetType', {
+				templateUrl : "views/widget/widget-new.view.client.html",
+				controller: "CreateWidgetController",
+				controllerAs: "model",
+				resolve: {
+					currentUser: checkLoggedIn
+				}
+			})
+			.when('/website/:websiteId/page/:pageId/widget/:widgetId/search', {
+				templateUrl : "views/widget/widget-flickr-search.view.client.html",
+				controller: "FlickrImageSearchController",
+				controllerAs: "model",
+				resolve: {
+					currentUser: checkLoggedIn
+				}
+			})
 			.otherwise({
-				redirectTo : "/login"
+				redirectTo : "/"
 			});
 	}
 
-	var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+	function checkLoggedIn(UserService, $q, $location) {
 		var deferred = $q.defer();
-		$http
-			.get('/api/loggedin')
-			.then(function(response) {
-				var user = response.data;
-				if (user !== '0') {
-					deferred.resolve(user);
-				} else {
+		UserService
+			.checkLoggedIn()
+			.then(function (user) {
+				if(user === '0') {
 					deferred.reject();
 					$location.url('/login');
-				}
-			});
-		return deferred.promise;
-	};
-
-	var checkCurrentUser = function ($q, $timeout, $http, $location, $rootScope) {
-		var deferred = $q.defer();
-
-		$http
-			.get('/api/loggedin')
-			.then(function(response) {
-				var user = response.data;
-				if (user === '0') {
-					user = null;
-				}
-				deferred.resolve(user);
-
-			});
-		return deferred.promise;
-	};
-
-	var checkAdmin = function ($q, $timeout, $http, $location, $rootScope) {
-		var deferred = $q.defer();
-
-		$http
-			.get('/api/loggedin')
-			.then(function(response) {
-				var user = response.data;
-				if (user !== '0') {
-					if (user.roles.indexOf('ADMIN') > -1) {
-						deferred.resolve(user);
-					}
 				} else {
-					$location.url('/login');
+					deferred.resolve(user);
 				}
-
 			});
+
 		return deferred.promise;
-	};
+	}
+
+	function checkAdmin(UserService, $q, $location) {
+		var deferred = $q.defer();
+		UserService
+			.checkAdmin()
+			.then(function (user) {
+				if(user === '0') {
+					deferred.reject();
+					$location.url('/');
+				} else {
+					deferred.resolve(user);
+				}
+			});
+
+		return deferred.promise;
+	}
+
+	function checkCurrentUser(UserService, $q, $location) {
+		var deferred = $q.defer();
+		UserService
+			.checkLoggedIn()
+			.then(function (user) {
+				if(user === '0') {
+					deferred.resolve({});
+				} else {
+					deferred.resolve(user);
+				}
+			});
+
+		return deferred.promise;
+	}
 
 })();

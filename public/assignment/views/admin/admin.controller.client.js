@@ -1,36 +1,51 @@
-(function () {
+(function() {
 	angular
 		.module("WebAppMaker")
-		.controller("AdminController", AdminController);
+		.controller("AdminUserController", AdminUserController);
 
-	function AdminController(UserService, $timeout, $window, admin) {
+
+	function AdminUserController(UserService) {
 		var vm = this;
 		vm.deleteUser = deleteUser;
+		vm.createUser = createUser;
+		vm.selectUser = selectUser;
+		vm.updateUser = updateUser;
 
-		UserService
-			.findAllUsers()
-			.then(function (users) {
-				vm.users = users;
-			});
+		init();
+
+		function init() {
+			findAllUsers();
+		}
+
+		function createUser(user) {
+			UserService
+				.createUser(user)
+				.then(findAllUsers());
+		}
+
+		function selectUser(user) {
+			vm.user = angular.copy(user);
+		}
+
+		function updateUser(user) {
+			UserService
+				.updateUser(user._id, user)
+				.then(findAllUsers());
+		}
 
 		function deleteUser(user) {
-			if (user._id === admin._id) {
-				vm.error = "One does not delete oneself";
-				$timeout(function () {
-					vm.updated = null;
-				}, 3000);
-			} else {
-				UserService
-					.deleteUser(user._id)
-					.then(function () {
-						$window.location.reload();
-					}, function () {
-						vm.error = "Error removing user";
-						$timeout(function () {
-							vm.error = null;
-						}, 3000);
-					});
-			}
+			UserService
+				.deleteUser(user._id)
+				.then(findAllUsers());
+		}
+
+		function findAllUsers() {
+			UserService
+				.findAllUsers()
+				.then(function (users) {
+					vm.users = users;
+				});
 		}
 	}
+
 })();

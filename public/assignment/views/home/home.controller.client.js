@@ -1,10 +1,12 @@
 (function() {
 	angular
 		.module("WebAppMaker")
-		.controller("AdminController", AdminController);
+		.controller("HomeController", HomeController);
 
-	function AdminController(currentUser) {
+
+	function HomeController(currentUser) {
 		var vm = this;
 		vm.currentUser = currentUser;
 	}
+
 })();

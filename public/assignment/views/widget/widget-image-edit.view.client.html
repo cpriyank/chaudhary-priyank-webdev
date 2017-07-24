@@ -1,0 +1,70 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid row">
+		<div class="navbar-text pull-left">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+				<span class="glyphicon glyphicon-chevron-left">
+				</span>
+			</a>
+		</div>
+		<div class="navbar-text pull-right">
+			<a ng-click="model.updateWidget()">
+				<span class="glyphicon glyphicon-ok">
+				</span>
+			</a>
+		</div>
+		<a class="navbar-brand">
+			Edit Image
+		</a>
+	</div>
+</nav>
+
+<div class="container-fluid">
+	<div ng-show="model.error"
+		class="alert alert-danger"
+		role="alert">{{model.error}}
+	</div>
+	<label for="name">Name</label>
+	<input id="name"
+	ng-model="model.widgetName"
+	class="form-control"/>
+	<label for="text">Text</label>
+	<input id="text"
+	ng-model="model.widgetText"
+	class="form-control"/>
+	<label for="width">Width</label>
+	<input id="width"
+	ng-model="model.widgetWidth"
+	class="form-control"/>
+	<label for="url">URL</label>
+	<input id="url"
+	ng-model="model.widgetUrl"
+	class="form-control"/>
+	<a class="btn btn-info btn-block"
+		href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/search">
+		Search
+	</a>
+	<label>Upload</label>
+	<form action="/api/upload"   method="post" enctype="multipart/form-data">
+		<input  name="myFile"    type="file" class="form-control"/>
+		<input  name="width"     value="{{model.widgetWidth}}" style="display: none"/>
+		<input  name="name"     value="{{model.widgetName}}" style="display: none"/>
+		<input  name="userId"    value="{{model.userId}}"   style="display: none"/>
+		<input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
+		<input  name="pageId"    value="{{model.pageId}}"   style="display: none"/>
+		<input  name="widgetId"  value="{{model.widgetId}}"   style="display: none"/>
+		<button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+	</form>
+	<a ng-click="model.deleteWidget()"
+		class="btn btn-danger btn-block">
+		Delete
+	</a>
+</div>
+
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
+</nav>

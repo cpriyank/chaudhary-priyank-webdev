@@ -1,14 +1,18 @@
 <div ng-if="widget.formatted"
-     text-angular
-     ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
-        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
-        ['indent','outdent'],['html']]">
-
-</div>
-
+	ng-model="widget.text"
+	text-angular
+	ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+	['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+	['indent','outdent'],['html']]"></div>
 <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
-       placeholder="{{widget.placeholder}}" class="form-control"/>
-
+ng-model="widget.text"
+placeholder="{{widget.placeholder}}"
+class="form-control"/>
 <textarea ng-if="!widget.formatted && (widget.rows > 1)"
-          rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
-          class="form-control">{{widget.text}}</textarea>
+	ng-model="widget.text"
+	rows="{{widget.rows}}"
+	placeholder="{{widget.placeholder}}"
+	class="form-control">
+	{{widget.text}}
+</textarea>
+

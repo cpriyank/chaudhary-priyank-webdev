@@ -1,85 +1,81 @@
 <nav class="navbar navbar-fixed-top">
-	<div class="row container-fluid">
-		<div class="col-sm-4 hidden-xs">
-			<div class="navbar-text pull-left margin-left">
+	<div class="container-fluid row">
+		<div class="col-xs-4 hidden-xs">
+			<p class="navbar-text pull-left">
+				<a href="#!/website" class="navbar-link">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+			</p>
+			<a class="navbar-brand">
+				Websites
+			</a>
+			<a href="#!/website/new" class="navbar-link navbar-text pull-right">
+				<span class="glyphicon glyphicon-plus"></span>
+			</a>
+		</div>
+		<div class="col-xs-8">
+			<p class="navbar-text pull-left visible-xs">
 				<a href="#!/website">
 					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-			</div>
-			<div class="navbar-header">
+					</a >
+				</p>
 				<a class="navbar-brand">
-					Websites
+					Edit Websites
 				</a>
-			</div>
-			<div class="navbar-text pull-right margin-right">
-				<a href="#!/website/new">
-					<span class="glyphicon glyphicon-plus"></span>
+				<a ng-click="model.editWebsite()"
+					class="navbar-link navbar-text pull-right">
+					<span class="glyphicon glyphicon-ok pull-right"></span>
 				</a>
 			</div>
 		</div>
-		<div class="col-sm-8">
-			<div class="navbar-text pull-left margin-left">
-				<a href="#!/website" class="visible-xs">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-			</div>
-			<div class="navbar-text pull-right margin-right">
-				<a ng-click="model.updateWebsite(model.website)">
-					<span class="glyphicon glyphicon-ok"></span>
-				</a>
-			</div>
-			<div class="navbar-header">
-				<a class="navbar-brand">
-					Edit Website
-				</a>
-			</div>
-		</div>
-	</div>
-</nav>
+	</nav>
 
-<div class="row container-fluid">
-	<div class="col-sm-4 hidden-xs">
-		<ul class="list-group borderless">
-			<li ng-repeat="website in model.websites" class="list-group-item cl-list-item-borderless">
-				<a href="#!/website/{{website._id}}">
-					<span class="glyphicon glyphicon-cog pull-right"></span>
-				</a>
-				<a href="#!/website/{{website._id}}/page">
-					{{website.name}}
-				</a>
-			</li>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4 hidden-xs">
+				<ul class="list-group">
+					<li ng-repeat="website in model.websites"
+						class="list-group-item">
+						<a href="#!/website/{{website._id}}">
+							<span class="glyphicon glyphicon-cog pull-right"></span>
+						</a>
+						<a href="#!/website/{{website._id}}/page">
+							{{website.name}}
+						</a>
+					</li>
+				</ul>
+			</div>
 		</ul>
 	</div>
-	<div class="col-xs-12 col-sm-8 pull-right">
-		<div ng-show="model.updated" class="alert alert-success" role="alert">{{model.updated}}</div>
-		<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
-		<form>
-			<div class="form-group">
-				<label for="websiteName">Website Name</label>
-				<input ng-model="model.website.name"
-				type="text"
-				class="form-control"
-				id="websiteName"
-				placeholder="Name">
-			</div>
 
-			<div class="form-group">
-				<label for="websiteDesc">Website Description</label>
-				<textarea ng-model="model.website.description"
-					class="form-control"
-					id="websiteDesc"
-					rows="5"
-					placeholder="Description">
-				</textarea>
-			</div>
-		</form>
+	<div class="col-xs-12 col-sm-8 ">
+		<div ng-show="model.error"
+			class="alert alert-danger"
+			role="alert">{{model.error}}
+		</div>
+		<label for="website-name">Website Name</label>
+		<input type="text"
+		ng-model="model.currentWebsite.name"
+		class="form-control"
+		id="website-name"
+		placeholder="Name">
 
-		<a class="btn btn-danger btn-block"
-			ng-click="model.deleteWebsite(model.website)">Delete</a>
+
+		<label for="website-description">Website Description</label>
+		<textarea ng-model="model.currentWebsite.description"
+			id="website-description"
+			class="form-control"
+			rows="5"
+			placeholder="Description">
+		</textarea>
+		<a ng-click="model.deleteWebsite()"
+			class="btn btn-danger btn-block">
+			Delete
+		</a>
 	</div>
 </div>
 
-
+<!-- <div ng-include="'./footer.view.client.html'"></div> -->
 <nav class="navbar navbar-fixed-bottom">
 	<div class="container-fuild">
 		<a href="#!/profile" class="navbar-link navbar-text pull-right">

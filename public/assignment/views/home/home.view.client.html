@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="header clearfix">
+		<nav>
+			<ul class="nav nav-pills pull-right">
+				<li role="presentation" class="active"><a href="#">Home</a></li>
+				<li role="presentation"><a ng-if="model.currentUser.roles.indexOf('ADMIN')>-1" href="#!/admin">Admin</a></li>
+				<li role="presentation"><a ng-show="!model.currentUser._id" href="#!/login">Login</a></li>
+				<li role="presentation"><a ng-show="!model.currentUser._id" href="#!/register">Register</a></li>
+				<li role="presentation"><a ng-show="model.currentUser._id" href="#!/profile">Profile</a></li>
+				<li role="presentation"><a href="https://github.com/pronoid/chaudhary-priyank-webdev">Github</a></li>
+				<li role="presentation"><a href="https://chaudhary-priyank-webdev.herokuapp.com/">Heroku</a></li>
+			</ul>
+		</nav>
+		<h3 class="text-muted">Priyank Sanjay Chaudhary</h3>
+	</div>
+
+	<div class="jumbotron">
+		<h1>Web Development Course Home Page</h1>
+		<h3 class="text-muted">Priyank Sanjay Chaudhary</h3>
+		<p><a class="btn btn-lg btn-success" ng-show="!model.currentUser._id" href="#!/login">Assignments</a></p>
+	</div>

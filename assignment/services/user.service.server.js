@@ -1,56 +1,17 @@
-var passport = require("passport");
-var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy = require('passport-twitter').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+module.exports = function(app) {
+	var userModel = require("../model/user/user.model.server");
+	var passport = require('passport');
+	var LocalStrategy = require('passport-local').Strategy;
+	var bcrypt = require("bcrypt-nodejs");
 
-module.exports = function(app, models){
-
-	var model = models.userModel;
-
-	app.get('/api/user', findUserByUsername);
-	app.get('/api/user/:uid', findUserById);
-	app.put('/api/user/:uid', updateUser);
-	app.delete('/api/user/:uid', deleteUser);
-	app.get('/api/alluser', findAllUsers);
-
-	app.post('/api/login', passport.authenticate('LocalStrategy'), login);
-	app.post('/api/logout', logout);
-	app.get ('/api/loggedin', loggedin);
-	app.post('/api/register', register);
-
-	app.get('/auth/google',
-		passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-		app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-		app.get('/auth/twitter',
-			passport.authenticate('twitter'));
-
-
-	app.get('/auth/google/callback',
-		passport.authenticate('google', {
-			successRedirect: '/profile',
-			failureRedirect: '/login'
-		}));
-
-app.get('/auth/twitter/callback', 
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/profile');
-  });
-
-	app.get('/auth/facebook/callback',
-		passport.authenticate('facebook', {
-			successRedirect: '/profile',
-			failureRedirect: '/login'
-		}));
-
+	passport.use(new LocalStrategy(localStrategy));
+	passport.serializeUser(serializeUser);
+	passport.deserializeUser(deserializeUser);
 
 	var googleConfig = {
-		clientID: process.env.GOOGLE_CLIENT_ID,
-		clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-		callbackURL: process.env.GOOGLE_CALLBACK_URL
+		clientID : process.env.GOOGLE_CLIENT_ID,
+		clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+		callbackURL  : process.env.GOOGLE_CALLBACK_URL
 	};
 
 	var facebookConfig = {
@@ -64,15 +25,218 @@ app.get('/auth/twitter/callback',
 		consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
 		callbackURL: process.env.TWITTER_CALLBACK_URL
 	};
-
+	var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+	var FacebookStrategy = require('passport-facebook').Strategy;
+	var TwitterStrategy = require('passport-twitter').Strategy;
 	passport.use(new GoogleStrategy(googleConfig, googleStrategy));
-passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
-passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
+	passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+	passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
+	app.post("/api/user", isAdmin, createUser);
+	app.get("/api/user", isAdmin, findAllUsers);
+	app.get("/api/user", findUserByUsername);
+	app.get("/api/user", findUserByCredentials);
+	app.get("/api/user/:userId", findUserById);
+	app.put("/api/user/:userId", isAdmin, updateUser);
+	app.delete("/api/user/:userId", isAdmin, deleteUser);
+
+	app.post("/api/login", passport.authenticate('local'), login);
+	app.post("/api/logout", logout);
+	app.post("/api/register", register);
+	app.post("/api/unregister", unregister);
+	app.get("/api/checkLoggedIn", checkLoggedIn);
+	app.get("/api/checkAdmin", checkAdmin);
+
+	app.get('/auth/google',
+		passport.authenticate('google',
+			{ scope : ['profile', 'email']}));
+	app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+	app.get('/auth/twitter',
+		passport.authenticate('twitter'));
+
+	app.get('/auth/google/callback',
+		passport.authenticate('google', {
+			successRedirect: '/#!/profile',
+			failureRedirect: '/#!/login'
+		}));
+
+	app.get('/auth/twitter/callback', 
+		passport.authenticate('twitter', { failureRedirect: '/#!/login' }),
+		function(req, res) {
+			res.redirect('/#!/profile');
+		});
+
+	app.get('/auth/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect: '/#!/profile',
+			failureRedirect: '/#!/login'
+		}));
+	function localStrategy(username, password, done) {
+		userModel
+			.findUserByUsername(username)
+			.then(function(user) {
+				if(user && bcrypt.compareSync(password, user.password)) {
+					return done(null, user);
+				} else {
+					return done(null, false);
+				}
+			},
+				function(err) {
+					if (err) { return done(err); }
+				}
+			);
+	}
+
+	function isAdmin(req, res, next) {
+		if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN')> -1) {
+			next();
+		} else {
+			res.sendStatus(401);
+		}
+	}
+
+	function register(req, res) {
+		var user = req.body;
+		user.password = bcrypt.hashSync(user.password);
+		userModel
+			.createUser(user)
+			.then(function (user) {
+				req.login(user, function (status) {
+					res.send(status);
+				});
+			});
+	}
+
+	function unregister(req, res) {
+		userModel
+			.deleteUser(req.user._id)
+			.then(function (user) {
+				req.logout();
+				res.sendStatus(200);
+			});
+	}
+
+	function logout(req, res) {
+		req.logout();
+		res.sendStatus(200);
+	}
+
+	function checkLoggedIn(req, res) {
+		if(req.isAuthenticated()) {
+			res.json(req.user);
+		} else {
+			res.send('0');
+		}
+	}
+
+	function checkAdmin(req, res) {
+		if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+			res.json(req.user);
+		} else {
+			res.send('0');
+		}
+	}
+
+	function login(req, res) {
+		var user = req.user;
+		res.json(user);
+	}
+
+	function serializeUser(user, done) {
+		done(null, user);
+	}
+
+	function deserializeUser(user, done) {
+		userModel
+			.findUserById(user._id)
+			.then(
+				function(user){
+					done(null, user);
+				},
+				function(err){
+					done(err, null);
+				}
+			);
+	}
+
+
+	function createUser(req, res){
+		var user = req.body;
+		userModel
+			.createUser(user)
+			.then(function (user) {
+				res.json(user);
+			}, function (error) {
+				res.send(error);
+			});
+	}
+
+	function findAllUsers(req, res) {
+		userModel
+			.findAllUsers()
+			.then(function (users) {
+				res.send(users);
+			});
+	}
+
+	function findUserByUsername(req, res) {
+		var username = req.query.username;
+		userModel
+			.findUserByUsername(username)
+			.then(function (user) {
+				if(user) {
+					res.json(user);
+					return;
+				} else {
+					res.sendStatus(404);
+				}
+			});
+	}
+
+	function findUserByCredentials(req, res) {
+		var username = req.query.username;
+		var password = req.query.password;
+		userModel
+			.findUserByCredentials(username, password)
+			.then(function (user) {
+				if(user) {
+					res.json(user);
+				}  else {
+					res.sendStatus(404);
+				}
+			});
+	}
+
+	function findUserById(req, res) {
+		var userId = req.params.userId;
+		userModel
+			.findUserById(userId)
+			.then(function (user) {
+				res.json(user);
+			});
+	}
+
+	function updateUser(req, res) {
+		var userId = req.params.userId;
+		var newUser = req.body;
+		userModel
+			.updateUser(userId, newUser)
+			.then(function (status) {
+				res.send(status);
+			});
+	}
+
+	function deleteUser(req, res) {
+		var userId = req.params.userId;
+		userModel
+			.deleteUser(userId)
+			.then(function (status) {
+				res.send(status);
+			});
+	}
 
 	function googleStrategy(token, refreshToken, profile, done) {
-		console.log(profile);
-
-		model
+		userModel
 			.findUserByGoogleId(profile.id)
 			.then(
 				function(user) {
@@ -83,7 +247,6 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 						var emailParts = email.split("@");
 						var newGoogleUser = {
 							username:  emailParts[0],
-							password: "0",
 							firstName: profile.name.givenName,
 							lastName:  profile.name.familyName,
 							email:     email,
@@ -92,8 +255,7 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 								token: token
 							}
 						};
-						return model
-							.createUser(newGoogleUser);
+						return userModel.createUser(newGoogleUser);
 					}
 				},
 				function(err) {
@@ -109,22 +271,19 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 				}
 			);
 	}
-
 	function facebookStrategy(token, refreshToken, profile, done) {
-		model
+		// Facebook doesn't supply email with its profile json (at least
+		// for me).
+		// Uncomment the line below to check
+		// var email = profile.emails[0].value;
+		// var emailParts = email.split("@");
+		userModel
 			.findUserByFacebookId(profile.id)
 			.then(
 				function(user) {
 					if(user) {
 						return done(null, user);
 					} else {
-					console.log(profile);
-					// Facebook doesn't supply email with its profile json (at least
-											// for me).
-											// Uncomment the line below to check
-											// console.log(profile);
-						// var email = profile.emails[0].value;
-						// var emailParts = email.split("@");
 						var newFbUser = {
 							username: "chiman",
 							password: "0",
@@ -141,7 +300,7 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 								token: token
 							}
 						};
-						return model
+						return userModel
 							.createUser(newFbUser);
 					}
 				},
@@ -160,29 +319,27 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 	}
 
 	function twitterStrategy(token, refreshToken, profile, done) {
-		model
+		userModel
 			.findUserByTwitterId(profile.id)
 			.then(
 				function(user) {
 					if(user) {
 						return done(null, user);
 					} else {
-						// Twitter doesn't supply email with its profile json (at least
-						// for me).
-						// Uncomment the line below to check
-						// console.log(profile);
+						console.log(profile);
 						var newTwitterUser = {
-							username: profile.screen_name,
+							username: "chiman",
 							password: "0",
-							firstName: profile.name,
-							lastName:  profile.screen_name,
+							firstName: "chimanbhai",
+							lastName: "choti",
+							email: "chiman@choti.com",
 							// email:     email,
 							twitter: {
 								id:    profile.id,
 								token: token
 							}
 						};
-						return model
+						return userModel
 							.createUser(newTwitterUser);
 					}
 				},
@@ -198,184 +355,5 @@ passport.use(new TwitterStrategy(twitterConfig, twitterStrategy));
 					if (err) { return done(err); }
 				}
 			);
-	}
-
-
-	passport.use('LocalStrategy', new LocalStrategy(localStrategy));
-	passport.serializeUser(serializeUser);
-	passport.deserializeUser(deserializeUser);
-
-	function localStrategy(username, password, done) {
-		model
-			.findUserByUsername(username)
-			.then(
-				function(user) {
-					if (user === null || user === undefined) {
-						return done(null, false, {message: 'Sorry! User not found'})
-					} else if(bcrypt.compareSync(password, user.password)) {
-						return done(null, user);
-					} else {
-						console.log("Sorry! User not found");
-						return done(null, false, {message: "Username and password don't match!"});
-					}
-				},
-				function(err) {
-					if (err) {
-						console.log("error: " + err);
-						return done(err);
-					}
-				}
-			);
-	}
-
-	function serializeUser(user, done) {
-		done(null, user);
-	}
-
-	function deserializeUser(user, done) {
-		model
-			.findUserById(user._id)
-			.then(
-				function(user){
-					done(null, user);
-				},
-				function(err){
-					done(err, null);
-				}
-			);
-	}
-
-	function login(req, res) {
-		var user = req.user;
-		res.json(user);
-	}
-
-	function logout(req, res) {
-		req.logout();
-		res.sendStatus(200);
-	}
-
-	function loggedin(req, res) {
-		res.send(req.isAuthenticated() ? req.user : '0');
-	}
-
-	function register(req, res) {
-		var user = req.body;
-		user.password = bcrypt.hashSync(user.password);
-		model
-			.createUser(user)
-			.then(
-				function (user) {
-					req.login(user, function (status) {
-						res.send(status);
-					})
-				}
-			)
-	}
-
-	function createUser(req, res) {
-
-		var user = req.body;
-		user.password = bcrypt.hashSync(user.password);
-
-		model
-			.createUser(user)
-			.then(
-				function (newUser) {
-					res.json(newUser);
-				},
-				function (error) {
-					res.sendStatus(404).send(error);
-				}
-			);
-
-	}
-
-	function findUserByUsername (req, res) {
-
-		var username = req.query.username;
-
-		model
-			.findUserByUsername(username)
-			.then(
-				function (users) {
-					res.json(users);
-				},
-				function (error) {
-					res.sendStatus(404).send(error);
-				}
-			)
-	}
-
-	function findAllUsers(req, res) {
-		model
-			.findAllUser()
-			.then(
-				function (users) {
-					res.json(users);
-				},
-				function (error) {
-					res.sendStatus(404).send(error);
-				}
-			)
-	}
-
-	function findUserById(req, res) {
-
-		var params = req.params;
-
-		if(params.uid){
-			model
-				.findUserById(params.uid)
-				.then(
-					function (user){
-						if(user){
-							res.json(user);
-						} else {
-							user = null;
-							res.send(user);
-						}
-					},
-					function (error){
-						res.sendStatus(400).send(error);
-					}
-				);
-		}
-
-	}
-
-	function updateUser(req,res) {
-		var uid = req.params.uid;
-		var user = req.body;
-		model
-			.updateUser(uid, user)
-			.then(
-				function (user){
-					res.json(user)
-				},
-				function (error){
-					res.sendStatus(400).send(error);
-				}
-			);
-
-	}
-
-	function deleteUser(req,res) {
-		var uid = req.params.uid;
-		if(uid){
-			model
-				.deleteUser(uid)
-				.then(
-					function (status){
-						res.sendStatus(200);
-					},
-					function (error){
-						res.sendStatus(400).send(error);
-					}
-				);
-		} else{
-			res.sendStatus(412);
-		}
-
 	}
 };

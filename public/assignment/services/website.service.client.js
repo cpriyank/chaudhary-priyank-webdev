@@ -5,37 +5,34 @@
 
 	function WebsiteService($http) {
 
-		var services = {
-			'createWebsite': createWebsite,
-			'findWebsitesByUser': findWebsitesByUser,
+		var api = {
+			'createWebsiteForUser': createWebsiteForUser,
+			'findAllWebsitesForUser': findAllWebsitesForUser,
 			'findWebsiteById': findWebsiteById,
 			'updateWebsite': updateWebsite,
 			'deleteWebsite': deleteWebsite,
-			'deleteWebsitesByUser': deleteWebsitesByUser
+			'deleteWebsitesByUser': deleteWebsitesByUser,
+			'deleteWebsiteFromUser': deleteWebsiteFromUser
 		};
-		return services;
+		return api;
 
-		function createWebsite(userId, website) {
-			var url = "/api/user/" + userId + "/website";
-			return $http.post(url, website)
-				.then(
-					function (response) {
-						return response.data;
-					}
-				);
+		function createWebsiteForUser(userId, website) {
+			return $http.post("/api/user/" + userId + "/website", website)
+				.then(function (response) {
+					return response.data;
+				});
 		}
 
-		function findWebsitesByUser(userId) {
+		function findAllWebsitesForUser(userId) {
 			var url = "/api/user/" + userId + "/website";
 			return $http.get(url)
-				.then(
-					function (response) {
-						return response.data;
-					});
+				.then(function (response) {
+					return response.data;
+				});
 		}
 
 		function findWebsiteById(websiteId) {
-			var url = "/api/website/" + websiteId;
+			var url = "/api/website/" + websiteId ;
 			return $http.get(url)
 				.then(function (response) {
 					return response.data;
@@ -43,15 +40,22 @@
 		}
 
 		function updateWebsite(websiteId, website) {
-			console.log("do update website");
-			var url = "/api/website/" + websiteId;
+			var url = "/api/website/"+ websiteId;
 			return $http.put(url, website)
 				.then(function (response) {
 					return response.data;
 				});
 		}
 
-		function deleteWebsite(userId, websiteId) {
+		function deleteWebsite(websiteId) {
+			var url = "/api/website/" + websiteId;
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function deleteWebsiteFromUser(userId, websiteId) {
 			var url = "/api/user/" + userId + "/website/" + websiteId;
 			return $http.delete(url)
 				.then(function (response) {
@@ -60,12 +64,11 @@
 		}
 
 		function deleteWebsitesByUser(userId) {
-			for (w in websites) {
-				website = websites[w];
-				if (website.developerId === userId) {
-					deleteWebsite(website._id);
-				}
-			}
+			var url = "/api/user/" + userId + "/website";
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
 		}
 	}
 })();

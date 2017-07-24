@@ -5,93 +5,136 @@
 		.controller("NewPageController", NewPageController)
 		.controller("EditPageController", EditPageController);
 
-	function PageListController($routeParams, PageService, loggedin) {
+
+	function PageListController(currentUser, $routeParams, PageService){
 		var vm = this;
-		vm.uid = loggedin._id;
-		vm.wid = $routeParams.wid;
-		PageService
-			.findPageByWebsiteId(vm.wid)
-			.then(renderPages);
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
+		vm.websiteId = $routeParams.websiteId;
 
-		function renderPages(pages) {
-			vm.pages = pages;
-		}
-	}
-
-	function NewPageController($routeParams, $timeout, $location, PageService, loggedin) {
-		var vm = this;
-		vm.uid = loggedin._id;
-		vm.wid = $routeParams.wid;
-
-		vm.createPage = createPage;
-
-		function createPage(pageName, pageTitle) {
-			if (pageName === undefined || pageName === null) {
-				vm.error = "Page name cannot be empty.";
-				$timeout(function () {
-					vm.error = null;
-				}, 3000);
-				return;
-			}
-
-			var page = {
-				name: pageName,
-				description: pageTitle
-			};
-
-			PageService
-				.createPage(vm.wid, page)
-				.then(function () {
-					$location.url("/website/" + vm.wid + "/page");
-				});
-		}
-	}
-
-	function EditPageController($routeParams, $location, $timeout, PageService, loggedin) {
-		var vm = this;
-		// vm.uid = $routeParams.uid;
-		vm.uid = loggedin._id;
-		vm.wid = $routeParams.wid;
-		vm.pid = $routeParams.pid;
-
-		vm.updatePage = updatePage;
-		vm.deletePage = deletePage;
+		init();
 
 		function init() {
 			PageService
-				.findPageById(vm.pid)
-				.then(function (page) {
-					vm.page = page;
-				}, function (error) {
-					vm.error = "Cannot find that page by ID";
-					$timeout(function () {
-						vm.error = null;
-					}, 3000);
-				});
+				.findAllPagesForWebsite(vm.websiteId)
+				.then(function (pages) {
+					vm.pages = pages;
+				})
 		}
+	}
+
+	function NewPageController(currentUser, $routeParams, $timeout, PageService){
+		var vm = this;
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
+		vm.websiteId = $routeParams.websiteId;
+		vm.createPage = createPage;
+
 		init();
 
-		function updatePage(newPage) {
+		function init() {
+			PageService
+				.findAllPagesForWebsite(vm.websiteId)
+				.then(function (pages) {
+					vm.pages = pages;
+				});
+
+		}
+
+		function createPage() {
+			if(vm.pageName === null || vm.pageName === undefined || vm.pageName === ""){
+				vm.error = "Page name cannot be empty";
+				$timeout(function(){
+					vm.error = null;
+				}, 3500);
+				return;
+			}
+			var newPage = {
+				name: vm.pageName,
+				description: vm.pageDescription
+			};
+			PageService
+				.createPage(vm.websiteId, newPage)
+				.then(function () {
+					vm.message = "Successfully created new page!";
+					$timeout(function(){
+						vm.message = null;
+					}, 3500);
+				}, function () {
+					vm.error = "Unable to create page!";
+					$timeout(function(){
+						vm.error = null;
+					}, 3500);
+				});
 
 			PageService
-				.updatePage(vm.pid, newPage)
-				.then(function () {
-					$location.url("/website/" + vm.wid + "/page");
+				.findAllPagesForWebsite(vm.websiteId)
+				.then(function (pages) {
+					vm.pages = pages;
+				});
+			vm.pageName = null;
+			vm.pageDescription = null;
+		}
+	}
+	function EditPageController(currentUser, $routeParams, $location, $timeout, PageService, WidgetService){
+		var vm = this;
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
+		vm.websiteId = $routeParams.websiteId;
+		vm.pageId = $routeParams.pageId;
+		vm.editPage = editPage;
+		vm.deletePage = deletePage;
+
+
+		init();
+
+		function init() {
+			PageService
+				.findAllPagesForWebsite(vm.websiteId)
+				.then(function (pages) {
+					vm.pages = pages;
+				});
+
+			PageService.findPageById(vm.pageId)
+				.then(function (cur) {
+					vm.currentPage = cur;
 				});
 		}
 
-		function deletePage(page) {
-			PageService.deletePage(vm.wid, page._id)
-				.then(
-					function () {
-						$location.url("/website/" + vm.wid + "/page");
-					},
-					function() {
-						vm.error = "Cannot delete this page";
-						$timeout(function () {
-							vm.error = null;
-						}, 3000);
-					});
+		function editPage() {
+			if(vm.currentPage.name === null
+				|| vm.currentPage.name === undefined
+				|| vm.currentPage.name === ""){
+				vm.error = "Page name cannot be empty";
+				$timeout(function(){
+					vm.error = null;
+				}, 3500);
+				return;
+			}
+			var editedPage = {
+				name: vm.currentPage.name,
+				description: vm.currentPage.description
+			};
+			PageService.updatePage(vm.pageId, editedPage)
+				.then(function () {
+					$location.url("/website/"+vm.websiteId+"/page");
+				});
+
+		}
+
+		function deletePage() {
+			PageService
+				.deletePageFromWebsite(vm.websiteId, vm.pageId)
+				.then(function () {
+					WidgetService
+						.deleteWidgetsByPage(vm.pageId);
+					$location.url("/website/"+vm.websiteId+"/page");
+				}, function () {
+					vm.error = "Unable to delete page!";
+					$timeout(function(){
+						vm.error = null;
+					}, 3500);
+				})
 
 		}
 	}

@@ -1,81 +1,80 @@
 <nav class="navbar navbar-fixed-top">
-	<div class="row container-fluid">
-		<div class="col-sm-4 hidden-xs">
-			<div class="navbar-text pull-left margin-left">
+	<div class="container-fluid row">
+		<div class="col-xs-4 hidden-xs">
+			<p class="navbar-text pull-left">
+				<a href="#!/website" class="navbar-link">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+			</p>
+			<a class="navbar-brand">
+				Websites
+			</a>
+			<a href="#!/website/new"
+				class="navbar-link navbar-text pull-right">
+				<span class="glyphicon glyphicon-plus"></span>
+			</a>
+		</div>
+		<div class="col-xs-8">
+			<p class="navbar-text pull-left visible-xs">
 				<a href="#!/website">
 					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-			</div>
-			<div class="navbar-header">
-				<a class="navbar-brand">
-					Websites
-				</a>
-			</div>
-			<div class="navbar-text pull-right margin-right">
-				<a href="#!/website/new">
-					<span class="glyphicon glyphicon-plus"></span>
-				</a>
-			</div>
-		</div>
-		<div class="col-sm-8">
-			<div class="navbar-text pull-left margin-left">
-				<a href="#!/website" class="visible-xs">
-					<span class="glyphicon glyphicon-chevron-left"></span>
-				</a>
-			</div>
-			<div class="navbar-text pull-right margin-right">
-				<a ng-click="model.newWebsite(model.websiteName, model.websiteDesc)">
-					<span class="glyphicon glyphicon-ok"></span>
-				</a>
-			</div>
-			<div class="navbar-header">
+					</a >
+				</p>
 				<a class="navbar-brand">
 					New Website
 				</a>
+				<a ng-click="model.createWebsite()" class="navbar-link navbar-text pull-right wd-text-white">
+					<span class="glyphicon glyphicon-ok pull-right"></span>
+				</a>
 			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
 
-<div class="row container-fluid">
-	<div class="col-sm-4 hidden-xs">
-		<ul class="list-group">
-			<li ng-repeat="website in model.websites" class="list-group-item">
-				<a href="#!/website/{{website._id}}">
-					<span class="glyphicon glyphicon-cog pull-right"></span>
-				</a>
-				<a href="#!/website/{{website._id}}/page">
-					{{website.name}}
-				</a>
-			</li>
-		</ul>
-	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4 hidden-xs">
+				<ul class="list-group">
+					<li ng-repeat="website in model.websites"
+						class="list-group-item">
+						<a href="#!/website/{{website._id}}">
+							<span class="glyphicon glyphicon-cog pull-right"></span>
+						</a>
+						<a href="#!/website/{{website._id}}/page">
+							{{website.name}}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-8 ">
+			<div ng-show="model.error"
+				class="alert alert-danger"
+				role="alert">{{model.error}}
+			</div>
+			<div ng-show="model.message"
+				class="alert alert-info">
+				{{model.message}}
+			</div>
 
 
-	<div class="col-xs-12 col-sm-8 pull-right">
-		<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
-		<form>
-			<div class="form-group">
-				<label for="websiteName">Name</label>
-				<input type="text"
+			<label for="website-name">Website Name</label>
+			<input type="text"
+			ng-model="model.name"
+			class="form-control"
+			id="website-name"
+			placeholder="Name">
+
+			<label for="website-description">Website Description</label>
+			<textarea ng-model="model.description"
+				id="website-description"
 				class="form-control"
-				id="websiteName"
-				placeholder="Name"
-				ng-model="model.websiteName"
-				required>
-			</div>
-			<div class="form-group">
-				<label for="websiteDesc">Description</label>
-				<textarea class="form-control"
-					id="websiteDesc"
-					rows="5"
-					placeholder="Description"
-					ng-model="model.websiteDesc">
-				</textarea>
-			</div>
-		</form>
+				rows="5"
+				placeholder="Description">
+
+			</textarea>
+		</div>
 	</div>
-</div>
 
 <nav class="navbar navbar-fixed-bottom">
 	<div class="container-fuild">

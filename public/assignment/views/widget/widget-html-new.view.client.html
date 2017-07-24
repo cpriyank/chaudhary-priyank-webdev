@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid row">
+		<div class="navbar-text pull-left">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+				<span class="glyphicon glyphicon-chevron-left">
+				</span>
+			</a>
+		</div>
+		<div class="navbar-text pull-right">
+			<a ng-click="model.createWidget()">
+				<span class="glyphicon glyphicon-ok">
+				</span>
+			</a>
+		</div>
+		<a class="navbar-brand">
+			HTML
+		</a>
+	</div>
+</nav>
+
+<div class="container-fluid">
+	<div ng-show="model.error"
+		class="alert alert-danger"
+		role="alert">{{model.error}}
+	</div>
+	<label for="name">Name</label>
+	<input id="name"
+	ng-model="model.widgetName"
+	class="form-control"/>
+	<div ng-model="model.widgetText"
+		text-angular
+		ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+		['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+		['indent','outdent'],['html']]">
+	</div>
+	<a ng-click="model.createWidget()"
+		class="btn btn-success btn-block">
+		Create
+	</a>
+</div>
+
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
+</nav>

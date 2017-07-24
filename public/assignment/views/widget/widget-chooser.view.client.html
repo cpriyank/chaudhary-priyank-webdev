@@ -1,8 +1,9 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-text pull-left margin-left">
-			<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget">
-				<span class="glyphicon glyphicon-chevron-left"></span>
+	<div class="container-fluid row">
+		<div class="navbar-text pull-left">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+				<span class="glyphicon glyphicon-chevron-left">
+				</span>
 			</a>
 		</div>
 		<a class="navbar-brand">
@@ -12,28 +13,40 @@
 </nav>
 
 <div class="container-fluid">
-
-	<div class="list-group">
-		<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget/create/HEADING" class="list-group-item list-group-item-action">
-			Header</a>
-		<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget/create/HTML" class="list-group-item list-group-item-action">
-			HTML</a>
-		<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget/create/IMAGE" class="list-group-item list-group-item-action">
-			Image</a>
-		<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget/create/YOUTUBE" class="list-group-item list-group-item-action">
-			YouTube</a>
-		<a href="#!/website/{{model.wid}}/page/{{model.pid}}/widget/create/TEXT" class="list-group-item list-group-item-action">
-			Text</a>
-	</div>
-
+	<ul class="list-group">
+		<li class="list-group-item">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/create/HEADING">
+				Header
+			</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/create/HTML">
+				HTML
+			</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/create/TEXT">
+				Text Input
+			</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/create/IMAGE">
+				Image
+			</a>
+		</li>
+		<li class="list-group-item">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget/create/YOUTUBE">
+				YouTube
+			</a>
+		</li>
+	</ul>
 </div>
 
-<nav class="navbar navbar-fixed-bottom navbar-default">
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
 	<div class="container-fuild">
-		<div class="navbar-text pull-right">
-			<a href="#!/profile">
-				<span class="glyphicon glyphicon-user"></span>
-			</a>
-		</div>
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
 	</div>
 </nav>

@@ -1,47 +1,81 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left margin-left">
-            <a href="#!/website/{{model.wid}}/page">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </div>
-        <a class="navbar-brand">
-            New Page
-        </a>
-        <div class="navbar-text pull-right margin-right">
-            <a ng-click="model.createPage(model.pageName, model.pageTitle)">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+	<div class="container-fluid row">
+		<div class="col-xs-4 hidden-xs">
+			<p class="navbar-text pull-left">
+				<a href="#!/website/{{model.websiteId}}/page" class="navbar-link">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+			</p>
+			<a class="navbar-brand" href="#">
+				Pages
+			</a>
+			<a href="#!/website/{{model.websiteId}}/page/new" class="navbar-link navbar-text pull-right">
+				<span class="glyphicon glyphicon-plus"></span>
+			</a>
+		</div>
+		<div class="col-xs-8">
+			<a class="navbar-brand">
+					New Page
+				</a>
+				<a ng-click="model.createPage()"
+					class="navbar-link navbar-text pull-right">
+					<span class="glyphicon glyphicon-ok pull-right"></span>
+				</a>
+			</div>
+		</div>
+	</nav>
 
-<div class="container-fluid">
-    <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4 hidden-xs">
+				<ul class="list-group">
+					<li ng-repeat="page in model.pages"
+						class="list-group-item">
+						<a href="#!/website/{{model.websiteId}}/page/{{page._id}}">
+							<span class="glyphicon glyphicon-cog pull-right"></span>
+						</a>
+						<a href="#!/website/{{model.websiteId}}/page/{{page._id}}/widget">
+							{{page.name}}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 
-    <label for="pageName">Page Name</label>
-    <input type="text"
-           class="form-control"
-           placeholder="Page Name"
-           id="pageName"
-           ng-model="model.pageName"
-           required>
-    <label for="pageTitle">Page Title</label>
-    <input type="text"
-           class="form-control"
-           placeholder="Page Title"
-           id="pageTitle"
-           ng-model="model.pageTitle"
-           required>
+		<div class="col-xs-12 col-sm-8 ">
+			<div ng-show="model.error"
+				class="alert alert-danger"
+				role="alert">{{model.error}}
+			</div>
 
-</div>
+			<div ng-show="model.message"
+				class="alert alert-info"
+				role="alert">{{model.message}}
+			</div>
 
-<nav class="navbar navbar-fixed-bottom navbar-default">
-    <div class="container-fuild">
-        <div class="navbar-text pull-right">
-            <a href="#!/profile">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
+			<label for="page-name">Page Name</label>
+			<input type="text"
+			ng-model="model.pageName"
+			class="form-control"
+			id="page-name"
+			placeholder="Name">
+
+			<label for="page-description">Page Description</label>
+			<textarea id="page-description"
+				ng-model="model.pageDescription"
+				class="form-control"
+				rows="5"
+				placeholder="Description">
+			</textarea>
+		</div>
+
+	</div>
+
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
 </nav>

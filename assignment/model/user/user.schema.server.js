@@ -1,40 +1,30 @@
-module.exports = function(mongoose){
-	var websiteSchema = require("../website/website.schema.server")(mongoose);
+var mongoose = require('mongoose');
 
-	var Schema = mongoose.Schema;
-
-	var userSchema = new Schema({
-		username : {type : String, required : true},
-		password : {type : String, required : true},
-		firstName : String,
-		lastName : String,
-		roles: [{type: String,
-			default: 'USER',
-			enum: ['USER', 'ADMIN']}],
-		email : String,
-		phone : String,
-		websites : [{
-			type: Schema.Types.ObjectId,
-			ref : 'websiteModel'
-		}],
-		dateCreated : {
-			type : Date,
-			default: Date.now
-		},
-		facebook: {
-		    id:    String,
-		    token: String
-		},
-		twitter: {
-		    id:    String,
-		    token: String
-		},
-		google: {
-			id: String,
-			token: String
-		}
+var userSchema = mongoose.Schema({
+	username: {type: String, unique: true},
+	password: String,
+	firstName: String,
+	lastName: String,
+	roles: [{type: String,
+		default: 'USER',
+		enum: ['USER', 'FACULTY', 'STUDENT', 'ADMIN']}],
+	google: {
+		id: String,
+		token: String
 	},
-		{collection: 'user'});
+	facebook: {
+		id: String,
+		token: String
+	},
+	twitter: {
+		id: String,
+		token: String
+	},
+	email: String,
+	phone: String,
+	websites: [{type: mongoose.Schema.Types.ObjectId, ref: "WebsiteModel"}],
+	dateCreated: {type: Date, default: Date.now()}
+}, {collection: "user"});
 
-	return userSchema;
-};
+
+module.exports = userSchema;

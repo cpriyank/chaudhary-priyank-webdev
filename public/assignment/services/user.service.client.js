@@ -4,20 +4,63 @@
 		.factory('UserService', UserService);
 
 	function UserService($http) {
-		var services = {
+
+		var api = {
+			"createUser": createUser,
+			"findAllUsers": findAllUsers,
 			"findUserById": findUserById,
 			"findUserByUsername": findUserByUsername,
 			"findUserByCredentials": findUserByCredentials,
-			"findAllUsers": findAllUsers,
 			"updateUser": updateUser,
 			"deleteUser": deleteUser,
-			"setCurrentUser":setCurrentUser,
-			"login":login,
+			"login" : login,
+			"checkLoggedIn": checkLoggedIn,
 			"logout" : logout,
-			"register" : register
+			"register": register,
+			"unregister": unregister,
+			"checkAdmin": checkAdmin
 		};
-		return services;
+		return api;
 
+		function register(user) {
+			var url = "/api/register";
+			return $http.post(url, user)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function unregister() {
+			var url = "/api/unregister";
+			return $http.post(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function checkLoggedIn() {
+			var url = "/api/checkLoggedIn";
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function checkAdmin() {
+			var url = "/api/checkAdmin";
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function logout() {
+			var url = "/api/logout";
+			return $http.post(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
 		function login(username, password) {
 			var url = "/api/login";
@@ -31,58 +74,44 @@
 				});
 		}
 
-		function logout() {
-			var url = "api/logout";
-			return $http.post(url)
-				.then(function (response) {
-					return response.data;
-				});
-		}
-
-		function register(user) {
-			var url = "api/register";
+		function createUser(user) {
+			var url = "/api/user";
 			return $http.post(url, user)
-				.then(function (response) {
-					return response.data;
-				})
-		}
-
-		function setCurrentUser(user) {
-			$rootScope.currentUser = user;
-		}
-
-		function findUserById(userId) {
-			var url = "/api/user/" + userId;
-			return $http.get(url)
-				.then(function (response) {
-					var user = response.data;
-					return user;
-				});
-		}
-
-		function findUserByUsername(username) {
-			var url = "/api/user?username=" + username;
-			return $http.get(url)
-				.then(function (response) {
-					return response.data;
-				});
-
-		}
-
-		function findUserByCredentials(username, password) {
-			var url = "/api/user?username=" + username + "&password=" + password;
-			return $http.get(url)
 				.then(function (response) {
 					return response.data;
 				});
 		}
 
 		function findAllUsers() {
-			var url = '/api/alluser';
+			var url = "/api/user";
 			return $http.get(url)
 				.then(function (response) {
 					return response.data;
-				})
+				});
+		}
+
+		function findUserById(userId) {
+			var url = "/api/user/" + userId;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function findUserByUsername(username) {
+			var url = "/api/user?"+"username="+username;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function findUserByCredentials(username, password) {
+			var url = "/api/user?"+"username="+username+"&"+"password="+password;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
 		}
 
 		function updateUser(userId, user) {

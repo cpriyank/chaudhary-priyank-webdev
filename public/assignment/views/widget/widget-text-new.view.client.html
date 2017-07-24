@@ -1,0 +1,62 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid row">
+		<div class="navbar-text pull-left">
+			<a href="#!/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+				<span class="glyphicon glyphicon-chevron-left">
+				</span>
+			</a>
+		</div>
+		<div class="navbar-text pull-right">
+			<a ng-click="model.createWidget()">
+				<span class="glyphicon glyphicon-ok">
+				</span>
+			</a>
+		</div>
+		<a class="navbar-brand">
+			Text
+		</a>
+	</div>
+</nav>
+
+<div class="container-fluid">
+
+	<div ng-show="model.error"
+		class="alert alert-danger"
+		role="alert">{{model.error}}
+	</div>
+
+	<label for="name">Name</label>
+	<input id="name"
+	ng-model="model.widgetName"
+	class="form-control"/>
+
+	<label for="text">Text</label>
+	<input id="text"
+	ng-model="model.widgetText"
+	class="form-control"/>
+	<label for="rows">Rows</label>
+	<input id="rows"
+	ng-model="model.rows"
+	class="form-control"
+	type="number"/>
+	<label for="placeholder">Placeholder</label>
+	<input id="placeholder"
+	ng-model="model.placeholder"
+	class="form-control"/>
+	Formatted
+	<input ng-model="model.formatted" type="checkbox"/>
+
+	<a ng-click="model.createWidget()"
+		class="btn btn-success btn-block">
+		Create
+	</a>
+</div>
+
+<!-- <div ng-include="'../footer/footer.view.client.html'"></div> -->
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
+</nav>

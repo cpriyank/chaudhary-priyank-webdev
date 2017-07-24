@@ -5,108 +5,147 @@
 		.controller("NewWebsiteController", NewWebsiteController)
 		.controller("EditWebsiteController", EditWebsiteController);
 
-	function WebsiteListController($routeParams, WebsiteService, loggedin) {
+	function WebsiteListController(currentUser, WebsiteService) {
 		var vm = this;
-		vm.uid = loggedin._id;
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
 
-		WebsiteService
-			.findWebsitesByUser(vm.uid)
-			.then(renderWebsites);
-
-		function renderWebsites(websites) {
-			vm.websites = websites;
-		}
-	}
-
-	function NewWebsiteController($routeParams, $timeout, WebsiteService, $location, loggedin) {
-		var vm = this;
-		vm.uid = loggedin._id;
-		vm.newWebsite = newWebsite;
+		init();
 
 		function init() {
 			WebsiteService
-				.findWebsitesByUser(vm.uid)
-				.then(renderWebsites);
-		}
-		init();
-
-		function renderWebsites(websites) {
-			vm.websites = websites;
-		}
-
-		function newWebsite(websiteName, websiteDesc) {
-			if (websiteName === undefined || websiteName === null) {
-
-				vm.error = "Website name cannot be empty.";
-
-				$timeout(function () {
-					vm.error = null;
-				}, 3000);
-
-				return;
-			}
-
-			var website = {
-				name: websiteName,
-				description: websiteDesc
-			};
-
-			return WebsiteService
-				.createWebsite(vm.uid, website)
-				.then(function () {
-					$location.url("/website");
+				.findAllWebsitesForUser(vm.userId)
+				.then(function (websites) {
+					vm.websites = websites;
 				});
 		}
 	}
 
-	function EditWebsiteController($routeParams, $location, $timeout, WebsiteService, loggedin) {
+	function NewWebsiteController(currentUser, $location, $timeout, WebsiteService) {
 		var vm = this;
-		vm.uid = loggedin._id;
-		vm.wid = $routeParams.wid;
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
+		vm.createWebsite = createWebsite;
 
-		vm.updateWebsite = updateWebsite;
+		init();
+
+		function init() {
+			WebsiteService
+				.findAllWebsitesForUser(vm.userId)
+				.then(function (websites) {
+					vm.websites = websites;
+				});
+		}
+
+		function createWebsite() {
+			if(vm.name === null || vm.name === undefined || vm.name === ""){
+				vm.error = "Website name cannot be empty";
+				$timeout(function(){
+					vm.error = null;
+				}, 3500);
+				return;
+			}
+			var newWebsite = {
+				name: vm.name,
+				description: vm.description
+			};
+			WebsiteService
+				.createWebsiteForUser(vm.userId, newWebsite)
+				.then(function () {
+					vm.message = "Successfully created new website!";
+					$timeout(function(){
+						vm.message = null;
+					}, 3500);
+				}, function () {
+					vm.error = "Unable to create website!"
+					$timeout(function(){
+						vm.error = null;
+					}, 3500);
+				});
+
+			WebsiteService
+				.findAllWebsitesForUser(vm.userId)
+				.then(function (websites) {
+					vm.websites = websites;
+				});
+
+			vm.name = null;
+			vm.description = null;
+			//$location.url("/user/" + vm.userId + "/website");
+		}
+	}
+	function EditWebsiteController(currentUser, $routeParams, $timeout, $location, WebsiteService, PageService){
+		var vm = this;
+		vm.user = currentUser;
+		vm.userId = currentUser._id;
+		vm.websiteId = $routeParams.websiteId;
+		vm.editWebsite = editWebsite;
 		vm.deleteWebsite = deleteWebsite;
 
-		WebsiteService
-			.findWebsitesByUser(vm.uid)
-			.then(function (websites) {
-				vm.websites = websites;
-			});
+		init();
 
-		WebsiteService
-			.findWebsiteById(vm.wid)
-			.then(function (website) {
-				vm.website = website;
-			}, function (error) {
-				vm.error = "Cannot find such a website";
-				$timeout(function () {
-					vm.error = null;
-				}, 3000);
-			});
-
-		function updateWebsite(newWebsite) {
-			WebsiteService.updateWebsite(vm.wid, newWebsite)
-				.then(function () {
-					vm.updated = "Website changes saved!";
-					$timeout(function () {
-						vm.updated = null;
-					}, 3000);
-				});
-
-		}
-
-		function deleteWebsite(website) {
+		function init() {
 			WebsiteService
-				.deleteWebsite(vm.uid, website._id)
-				.then(function () {
-					$location.url("/website");
-				}, function (error) {
-					vm.error = "Unable to remove this website";
-					$timeout(function () {
-						vm.error = null;
-					}, 3000);
+				.findAllWebsitesForUser(vm.userId)
+				.then(function (websites) {
+					vm.websites = websites;
+				});
+
+			WebsiteService
+				.findWebsiteById(vm.websiteId)
+				.then(function (cur) {
+					vm.currentWebsite = cur;
 				});
 		}
+
+
+		function editWebsite(){
+			if(vm.currentWebsite.name === null
+				|| vm.currentWebsite.name === undefined
+				|| vm.currentWebsite.name === ""){
+				vm.error = "website name cannot be empty";
+				$timeout(function(){
+					vm.error = null;
+				}, 3500);
+				return;
+			}
+			var editedWebsite = {
+				name: vm.currentWebsite.name,
+				description: vm.currentWebsite.description
+			};
+			WebsiteService
+				.updateWebsite(vm.websiteId, editedWebsite)
+				.then(function () {
+					vm.message = "Website changes saved!"
+					$timeout(function(){
+						vm.error = null;
+					}, 3500);
+				});
+
+			WebsiteService
+				.findAllWebsitesForUser(vm.userId)
+				.then(function (websites) {
+					vm.websites = websites;
+				});
+
+			$location.url("/website");
+		}
+
+		function deleteWebsite(){
+			WebsiteService
+				.deleteWebsiteFromUser(vm.userId, vm.websiteId)
+				.then(function () {
+					PageService
+						.deletePagesByWebsite(vm.websiteId);
+					$location.url("/website");
+				}, function () {
+					vm.error = "Unable to delete website!"
+					$timeout(function(){
+						vm.error = null;
+					}, 3500);
+				});
+		}
+
 	}
 
 })();

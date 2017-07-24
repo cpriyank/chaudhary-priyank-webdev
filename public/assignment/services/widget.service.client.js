@@ -1,16 +1,22 @@
-(function() {
+(function () {
 	angular
 		.module("WebAppMaker")
-		.factory("WidgetService", WidgetService);
+		.factory('WidgetService', WidgetService);
+
+
 	function WidgetService($http) {
-		var service = {
-			"createWidget" : createWidget,
-			"findWidgetsByPageId" : findWidgetsByPageId,
-			"findWidgetById" : findWidgetById,
-			"updateWidget" : updateWidget,
-			"deleteWidget" : deleteWidget
+
+		var api = {
+			'createWidget': createWidget,
+			'findAllWidgetsForPage': findAllWidgetsForPage,
+			'findWidgetById': findWidgetById,
+			'updateWidget': updateWidget,
+			'deleteWidget': deleteWidget,
+			'deleteWidgetFromPage': deleteWidgetFromPage,
+			'deleteWidgetsByPage': deleteWidgetsByPage,
+			'sortWidgets': sortWidgets
 		};
-		return service;
+		return api;
 
 		function createWidget(pageId, widget) {
 			var url = "/api/page/" + pageId + "/widget";
@@ -20,13 +26,12 @@
 				});
 		}
 
-		function findWidgetsByPageId(pageId) {
+		function findAllWidgetsForPage(pageId) {
 			var url = "/api/page/" + pageId + "/widget";
-
 			return $http.get(url)
 				.then(function (response) {
 					return response.data;
-				})
+				});
 		}
 
 		function findWidgetById(widgetId) {
@@ -42,15 +47,39 @@
 			return $http.put(url, widget)
 				.then(function (response) {
 					return response.data;
-				})
+				});
 		}
 
-		function deleteWidget(pageId, widgetId) {
+		function deleteWidget(widgetId) {
+			var url = "/api/widget/" + widgetId;
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function deleteWidgetFromPage(pageId, widgetId) {
 			var url = "/api/page/" + pageId + "/widget/" + widgetId;
 			return $http.delete(url)
 				.then(function (response) {
 					return response.data;
 				});
 		}
+
+		function deleteWidgetsByPage(pageId){
+			var url = "/api/page/" + pageId + "/widget";
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function sortWidgets(start, end, pageId) {
+			var url = "/page/" + pageId + "/widget?initial=index1&final=index2";
+			url = url.replace("index1", start)
+				.replace("index2", end);
+			$http.put(url);
+		}
+
 	}
 })();

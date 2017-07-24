@@ -1,0 +1,99 @@
+body {
+		margin-top: 40px;
+		background-color:#fff;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+font-family: 'Lato', sans-serif;
+color: #111;
+}
+
+h1, h2, h3 {
+text-transform: uppercase;
+}
+
+a {
+color: #4717f6;
+}
+
+li {
+color: #a239ca;
+}
+
+.navbar-brand {
+font-family: 'Lato', sans-serif;
+text-transform: uppercase;
+color: 959595; 
+}
+
+/* navbar */
+.navbar-default, .navbar-brand{
+	font-family: 'Lato', sans-serif;
+	text-transform: uppercase;
+		background-color: transparent;
+		border: none;
+}
+
+label {
+	font-family: 'Lato', sans-serif;
+	text-transform: uppercase;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+input.form-control {
+    margin-bottom: 5px;
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.navbar-icon-right {
+    margin-top: 16px;
+    margin-right: 14px;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.relative-position {
+    position: relative;
+}
+
+.absolute-position {
+    position: absolute;
+}
+
+.list-element-menu {
+    top: 0px;
+    right: 0px;
+    background-color: white;
+}
+
+@media all and (max-device-width:600px) and (orientation:portrait) {
+    .col-xs-4{
+        display: none;
+    }
+    div.vertical-separator{
+        display: none;
+    }
+    .col-xs-8{
+        width: 100%;
+    }
+    .row .col-xs-8 .container-fluid .side-orientation{
+        display: block;
+    }
+}
+
+@media all and (min-device-width:400px) and (orientation:landscape) {
+    .row .col-xs-8 .container-fluid .side-orientation{
+        display: none;
+        width: 0%;
+    }
+}
+

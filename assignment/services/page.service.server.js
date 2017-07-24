@@ -1,109 +1,68 @@
-module.exports = function(app, models){
+module.exports = function(app) {
 
-	var model = models.pageModel;
+	var pageModel = require("../model/page/page.model.server");
 
-	app.post("/api/website/:wid/page", createPage);
-
-	app.get("/api/website/:wid/page", findAllPagesForWebsite);
-	app.get("/api/page/:pid", findPageById);
-
-	app.put("/api/page/:pid", updatePage);
-
-	app.delete("/api/website/:wid/page/:pid", deletePage);
+	app.post("/api/website/:websiteId/page", createPage);
+	app.get("/api/website/:websiteId/page", findAllPagesForWebsite);
+	app.get("/api/page/:pageId", findPageById);
+	app.put("/api/page/:pageId", updatePage);
+	app.delete("/api/website/:websiteId/page/:pageId", deletePageFromWebsite);
+	app.delete("/api/website/:websiteId/page", deletePagesByWebsite);
 
 	function createPage(req, res) {
-		var wid = req.params.wid;
+		var websiteId = req.params.websiteId;
 		var page = req.body;
-
-		model
-			.createPage(wid, page)
-			.then(
-				function (page) {
-					if(page){
-						res.json(page);
-					} else {
-						page = null;
-						res.send(page);
-					}
-				},
-				function (error) {
-					res.sendStatus(400).send("error in creating page");
-				}
-			)
+		pageModel
+			.createPage(websiteId, page)
+			.then(function (page) {
+				res.send(page);
+			});
 	}
 
 	function findAllPagesForWebsite(req, res) {
-		var wid = req.params.wid;
-
-		model
-			.findAllPagesForWebsite(wid)
-			.then(
-				function (pages) {
-					if(pages) {
-						res.json(pages);
-					} else {
-						pages = null;
-						res.send(pages);
-					}
-				},
-				function (error) {
-					res.sendStatus(400).send("error in finding pages for website");
-				}
-			)
+		var websiteId = req.params.websiteId;
+		pageModel
+			.findAllPagesForWebsite(websiteId)
+			.then(function (pages) {
+				res.send(pages);
+			});
 	}
 
 	function findPageById(req, res) {
-		var pid = req.params.pid;
-		model
-			.findPageById(pid)
-			.then(
-				function (page) {
-					if (page) {
-						res.json(page);
-					} else {
-						page = null;
-						res.send(page);
-					}
-				},
-				function (error) {
-					res.sendStatus(400).send("error in finding page by Id");
-				}
-			);
+		var pageId = req.params.pageId;
+		pageModel
+			.findPageById(pageId)
+			.then(function (page) {
+				res.send(page);
+			});
 	}
 
 	function updatePage(req, res) {
-		var pid = req.params.pid;
+		var pageId = req.params.pageId;
 		var page = req.body;
-
-		model
-			.updatePage(pid, page)
-			.then(
-				function (page) {
-					res.json(page);
-				},
-				function (error) {
-					res.status(400).send("error in updating page");
-				}
-			);
+		pageModel
+			.updatePage(pageId, page)
+			.then(function (status) {
+				res.send(status);
+			});
 	}
 
-	function deletePage(req, res) {
-		var wid = req.params.wid;
-		var pid = req.params.pid;
-
-		if(pid){
-			model
-				.deletePage(wid, pid)
-				.then(
-					function (status){
-						res.sendStatus(200);
-					},
-					function (error){
-						res.sendStatus(400).send(error);
-					}
-				);
-		} else{
-			res.sendStatus(412);
-		}
+	function deletePageFromWebsite(req, res) {
+		var pageId = req.params.pageId;
+		var websiteId = req.params.websiteId;
+		pageModel
+			.deletePageFromWebsite(websiteId, pageId)
+			.then(function (status) {
+				res.send(status);
+			});
 	}
-};
+
+	function deletePagesByWebsite(req, res) {
+		var websiteId = req.params.websiteId;
+		pageModel
+			.deletePagesByWebsite(websiteId)
+			.then(function (status) {
+				res.send(status);
+			});
+	}
+}
