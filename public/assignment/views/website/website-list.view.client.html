@@ -1,36 +1,36 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}/website/new">
-                <span class="glyphicon glyphicon-plus"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#/user/{{model.userId}}">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                Websites
-            </a>
-        </div>
-    </div>
+<nav class="navbar navbar-fixed-top">
+	<div class="container-fluid">
+		<a href="#!/profile"
+			class="navbar-link navbar-text pull-left">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a class="navbar-brand">
+			Websites
+		</a>
+		<a href="#!/website/new"
+			class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-plus"></span>
+		</a>
+	</div>
 </nav>
 
-<ul class="list-group">
-    <div ng-repeat="website in model.websites">
-        <li class="list-group-item">
-            <a href="#/user/{{model.userId}}/website/{{website._id}}/page"> {{website.name}} </a>
-            <a href="#/user/{{model.userId}}/website/{{website._id}}">
-                <span class="pull-right glyphicon glyphicon-cog"/>
-            </a>
-        </li>
-    </div>
-</ul>
+<div class="container-fluid">
+	<ul class="list-group">
+		<li ng-repeat="website in model.websites" class="list-group-item">
+			<a href="#!/website/{{website._id}}">
+				<span class="glyphicon glyphicon-cog pull-right"></span>
+			</a>
+			<a href="#!/website/{{website._id}}/page">
+				{{website.name}}
+			</a>
+		</li>
+	</ul>
+</div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="#/user/{{model.userId}}" class="pull-right navbar-icon-right">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
+<nav class="navbar navbar-fixed-bottom">
+	<div class="container-fuild">
+		<a href="#!/profile" class="navbar-link navbar-text pull-right">
+			<span class="glyphicon glyphicon-user"></span>
+		</a>
+	</div>
 </nav>

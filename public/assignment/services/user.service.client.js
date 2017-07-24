@@ -1,53 +1,104 @@
-(function(){
-    angular
-        .module("WebAppMaker")
-        .factory("UserService", UserService);
+(function () {
+	angular
+		.module("WebAppMaker")
+		.factory('UserService', UserService);
 
-			// // APIs in the UserService service
-    function UserService($http) {
-        var api = {
-            login: login,
-            logout: logout,
-            createUser: createUser,
-            findUserById: findUserById,
-            findUserByUsername: findUserByUsername,
-            findUserByCredentials: findUserByCredentials,
-            updateUser: updateUser,
-            deleteUser: deleteUser
-        };
+	function UserService($http) {
+		var services = {
+			"findUserById": findUserById,
+			"findUserByUsername": findUserByUsername,
+			"findUserByCredentials": findUserByCredentials,
+			"findAllUsers": findAllUsers,
+			"updateUser": updateUser,
+			"deleteUser": deleteUser,
+			"setCurrentUser":setCurrentUser,
+			"login":login,
+			"logout" : logout,
+			"register" : register
+		};
+		return services;
 
-        return api;
 
-        function login(user) {
-            return $http.post("/api/login", user);
-        }
+		function login(username, password) {
+			var url = "/api/login";
+			var credentials = {
+				username: username,
+				password: password
+			};
+			return $http.post(url, credentials)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function logout() {
-            return $http.post("/api/logout");
-        }
+		function logout() {
+			var url = "api/logout";
+			return $http.post(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function createUser(user) {
-            return $http.post('/api/user', user);
-        }
+		function register(user) {
+			var url = "api/register";
+			return $http.post(url, user)
+				.then(function (response) {
+					return response.data;
+				})
+		}
 
-        function findUserById(userId) {
-            return $http.get('/api/user/' + userId);
-        }
+		function setCurrentUser(user) {
+			$rootScope.currentUser = user;
+		}
 
-        function findUserByUsername(username) {
-            return $http.get('/api/user?username=' + username);
-        }
+		function findUserById(userId) {
+			var url = "/api/user/" + userId;
+			return $http.get(url)
+				.then(function (response) {
+					var user = response.data;
+					return user;
+				});
+		}
 
-        function findUserByCredentials(username, password) {
-            return $http.get('/api/user?username=' + username + '&password=' + password);
-        }
+		function findUserByUsername(username) {
+			var url = "/api/user?username=" + username;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
 
-        function updateUser(userId, newuser) {
-            return $http.put('/api/user/' + userId, newuser);
-        }
+		}
 
-        function deleteUser(userId) {
-            return $http.delete('/api/user/' + userId);
-        }
-    }
+		function findUserByCredentials(username, password) {
+			var url = "/api/user?username=" + username + "&password=" + password;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function findAllUsers() {
+			var url = '/api/alluser';
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				})
+		}
+
+		function updateUser(userId, user) {
+			var url = "/api/user/" + userId;
+			return $http.put(url, user)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+
+		function deleteUser(userId) {
+			var url = "/api/user/" + userId;
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
+	}
 })();

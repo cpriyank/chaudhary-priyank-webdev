@@ -1,64 +1,14 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div ng-hide="model.widget.wid" class="navbar-header">
-            <a class="navbar-brand"
-               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                Widget Edit
-            </a>
-            <a ng-click="model.updateWidget(model.widget)" class="pull-right navbar-icon-right">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
-        <div ng-show="model.widget.wid" class="navbar-header">
-            <a class="navbar-brand"
-               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                New Widget
-            </a>
-            <a ng-click="model.createWidget(model.widget)" class="pull-right navbar-icon-right">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    <form>
-        <div class="form-group">
-            <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
-            Name
-            <input ng-model="model.widget.name" class="form-control"/>
-        </div>
-        <div class="form-group">
-            Text
-            <input ng-model="model.widget.text" class="form-control"/>
-            </div>
-        <div class="form-group">
-            Rows
-            <input ng-model="model.widget.rows" class="form-control" type="number"/>
-            </div>
-        <div class="form-group">
-            Placeholder
-            <input ng-model="model.widget.placeholder" class="form-control"/>
-            </div>
-        <div class="form-group">
-            Formatted
-            <input ng-model="model.widget.formatted" type="checkbox"/>
-            </div>
-        <a ng-hide="model.widget.wid" ng-click="model.deleteWidget()" class="btn btn-danger btn-block">
-            Delete
-        </a>
-    </form>
+<div ng-if="widget.formatted"
+     text-angular
+     ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
 
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="#/user/{{model.userId}}" class="pull-right navbar-icon-right">
-                <span class="glyphicon glyphicon-user"></span>
-            </a>
-        </div>
-    </div>
-</nav>
+<input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
+       placeholder="{{widget.placeholder}}" class="form-control"/>
+
+<textarea ng-if="!widget.formatted && (widget.rows > 1)"
+          rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+          class="form-control">{{widget.text}}</textarea>

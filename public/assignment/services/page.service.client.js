@@ -1,42 +1,63 @@
-// PageService in a file called page.service.client.js.
-// The service is declared in a function of the same name. In the service
-// there's a local array called pages that will be used to simulate data from
-// a database. The local pages array is only temporary and will be removed in
-// the next assignment where data will be fetched from the server
-(function(){
-    angular
-        .module("WebAppMaker")
-        .factory("PageService", PageService);
+(function () {
+	angular
+		.module("WebAppMaker")
+		.factory("PageService", PageService);
 
-    function PageService($http) {
-        var api = {
-            createPage: createPage,
-            findPageByWebsiteId: findPageByWebsiteId,
-            findPageById: findPageById,
-            updatePage: updatePage,
-            deletePage: deletePage
-        };
+	function PageService($http){
+		var services = {
+			'createPage' : createPage,
+			'findPageByWebsiteId' : findPageByWebsiteId,
+			'findPageById' : findPageById,
+			'updatePage' : updatePage,
+			'deletePage' : deletePage,
+			'deletePagesByWebsite' : deletePagesByWebsite
+		};
+		return services;
 
-        return api;
+		function createPage(websiteId, page){
+			var url = "/api/website/" + websiteId + "/page";
+			return $http.post(url, page)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function createPage(websiteId, page) {
-            return $http.post('/api/website/' + websiteId + '/page', page);
-        }
+		function findPageById(pageId){
+			var url = "/api/page/" + pageId;
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function findPageByWebsiteId(websiteId) {
-            return $http.get('/api/website/' + websiteId + '/page');
-        }
+		function findPageByWebsiteId(websiteId) {
+			var url = "/api/website/" + websiteId + "/page";
+			return $http.get(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function findPageById(pageId) {
-            return $http.get('/api/page/' + pageId);
-        }
+		function updatePage(pageId, page){
+			var url = "/api/page/" + pageId;
+			return $http.put(url, page)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function updatePage(pageId, page) {
-            return $http.put('/api/page/' + pageId, page);
-        }
+		function deletePage(websiteId, pageId) {
+			var url = "/api/website/" + websiteId + "/page/" + pageId;
+			console.log(url);
+			return $http.delete(url)
+				.then(function (response) {
+					return response.data;
+				});
+		}
 
-        function deletePage(pageId) {
-            return $http.delete('/api/page/' + pageId);
-        }
-    }
+		function deletePagesByWebsite(websiteId){
+			var url = "/api/website/" + websiteId + "/page";
+			return $http.delete(url);
+		}
+	}
 })();

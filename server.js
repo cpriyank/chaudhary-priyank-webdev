@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session      = require('express-session');
 var passport = require('passport');
+var bcrypt = require("bcrypt-nodejs");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,9 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 // app.use(session({ secret: process.env.SESSION_SECRET }));
 app.use(session({
-    secret: "This is secret code",
+    secret: process.env.SESSION_SECRET || "This is secret code",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 
 
@@ -30,6 +31,6 @@ require("./assignment/app.js")(app);
 
 var port      = process.env.PORT || 3000;
 var ipaddress = process.env.IP;
-console.log('Hello! Server running on localhost port 3000');
+console.log('Hello! Server running on 127.0.0.1:3000');
 
 app.listen(port, ipaddress);

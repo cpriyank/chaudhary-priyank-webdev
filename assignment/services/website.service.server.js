@@ -1,82 +1,120 @@
-module.exports = function (app, model) {
-    console.log("Hello from Website service");
+module.exports = function(app, models){
 
-    app.post('/api/user/:userId/website', createWebsite);
-    app.get('/api/user/:userId/website', findAllWebsitesForUser);
-    app.get('/api/website/:websiteId', findWebsiteById);
-    app.put('/api/website/:websiteId', updateWebsite);
-    app.delete('/api/website/:websiteId', deleteWebsite);
 
-// API calls
+    var model = models.websiteModel;
+
+    app.post('/api/user/:uid/website',createWebsite);
+
+    app.get('/api/user/:uid/website',findAllWebsitesForUser);
+    app.get('/api/website/:wid',findWebsiteById);
+
+    app.put('/api/website/:wid',updateWebsite);
+
+    app.delete('/api/user/:uid/website/:wid',deleteWebsite);
+
     function createWebsite(req, res) {
+        var uid = req.params.uid;
         var website = req.body;
-        var userId = req.params.userId;
-        model.websiteModel
-            .createWebsiteForUser(userId, website)
+
+
+        model
+            .createWebsiteForUser(uid, website)
             .then(
-                function () {
-        res.sendStatus(200);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
+                function (website) {
+                    if(website){
+                        res.json(website);
+                    } else {
+                        website = null;
+                        res.send(website);
+                    }
                 }
-            );
+                ,
+                function (error) {
+                    res.sendStatus(400).send("website service server, createWebsiteForUser error");
+                }
+            )
+
     }
 
     function findAllWebsitesForUser(req, res) {
-        var userId = req.params.userId;
-        model.websiteModel
-            .findAllWebsitesForUser(userId)
+        var uid = req.params.uid;
+
+        model
+            .findAllWebsitesForUser(uid)
             .then(
                 function (websites) {
-                    res.json(websites);
+                    if(websites) {
+                        res.json(websites);
+                    } else {
+                        websites = null;
+                        res.send(websites);
+                    }
                 },
                 function (error) {
-                    res.sendStatus(400).send(error);
-        }
-            );
+                    res.sendStatus(400).send("website service server, findAllWebsitesForUser error");
+                }
+            )
+
     }
 
     function findWebsiteById(req, res) {
-        var websiteId = req.params.websiteId;
-        model.websiteModel
-            .findWebsiteById(websiteId)
+        var wid = req.params.wid;
+
+        model
+            .findWebsiteById(wid)
             .then(
-                function (websiteObj) {
-                    res.json(websiteObj);
+                function (website) {
+                    if(website) {
+                        res.json(website);
+                    } else {
+                        website = null;
+                        res.send(website);
+                    }
                 },
                 function (error) {
                     res.sendStatus(400).send(error);
-        }
-            );
+                }
+            )
+
+
     }
 
     function updateWebsite(req, res) {
-        var websiteId = req.params.websiteId;
+
+        var wid = req.params.wid;
         var website = req.body;
-        model.websiteModel
-            .updateWebsite(websiteId, website)
+
+        model
+            .updateWebsite(wid, website)
             .then(
-                function () {
-        res.sendStatus(200);
+                function (website){
+                    res.json(website)
                 },
-                function (error) {
-                    res.sendStatus(400).send(error);
+                function (error){
+                    res.sendStatus(400).send("website service server, updateWebsite error");
                 }
             );
+
     }
 
     function deleteWebsite(req, res) {
-        var websiteId = req.params.websiteId;
-        model.websiteModel
-            .deleteWebsite(websiteId)
-            .then(
-                function () {
-        res.sendStatus(200);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-                }
-            );
+        var uid = req.params.uid;
+        var wid = req.params.wid;
+
+        if(wid){
+            model
+                .deleteWebsite(uid, wid)
+                .then(
+                    function (status){
+                        res.sendStatus(200);
+                    },
+                    function (error){
+                        res.sendStatus(400).send(error);
+                    }
+                );
+        } else{
+            res.sendStatus(412);
+        }
+
     }
 };

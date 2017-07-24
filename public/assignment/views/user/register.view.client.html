@@ -11,22 +11,10 @@
            ng-model="model.password"/>
     <input type="password"
            class="form-control"
-           placeholder="very password"
-           ng-model="model.repassword"/>
-    <input type="text"
-           class="form-control"
-           placeholder="First Name"
-           ng-model="model.firstName"/>
-    <input type="text"
-           class="form-control"
-           placeholder="Last Name"
-           ng-model="model.lastName"/>
-    <input type="text"
-           class="form-control"
-           placeholder="Email"
-           ng-model="model.email"/>
-    <a ng-click="model.register(model.username, model.password, model.repassword, model.firstName, model.lastName, model.email)"
-       class="btn btn-primary btn-block">Register</a>
-    <a class="btn btn-danger  btn-block"
+           placeholder="verify password"
+           ng-model="model.vpassword"/>
+    <a class="btn btn-primary btn-block"
+       ng-click="model.register(model.username, model.password, model.vpassword)">Register</a>
+    <a class="btn btn-danger btn-block"
        href="#/login">Cancel</a>
 </div>

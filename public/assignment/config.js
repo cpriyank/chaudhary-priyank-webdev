@@ -1,107 +1,186 @@
 (function(){
 	angular
 		.module("WebAppMaker")
-		.config(Config);
+		.config(configuration);
 
-	function Config($routeProvider, $sceDelegateProvider) {
+	function configuration($routeProvider, $sceDelegateProvider) {
 		$routeProvider
-			.when("/", {
-				templateUrl: "views/user/login.view.client.html",
+			.when('/login', {
+				templateUrl : "views/user/login.view.client.html",
 				controller: "LoginController",
 				controllerAs: "model"
 			})
-			.when("/login", {
-				templateUrl: "views/user/login.view.client.html",
-				controller: "LoginController",
-				controllerAs: "model"
-			})
-			.when("/register", {
-				templateUrl: "views/user/register.view.client.html",
+			.when('/register', {
+				templateUrl : "views/user/register.view.client.html",
 				controller: "RegisterController",
 				controllerAs: "model"
 			})
-			.when("/user/:uid", {
-				templateUrl: "views/user/profile.view.client.html",
+			.when('/profile', {
+				templateUrl : "views/user/profile.view.client.html",
 				controller: "ProfileController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website", {
-				templateUrl: "views/website/website-list.view.client.html",
+			.when('/admin', {
+				templateUrl : "views/admin/admin.view.client.html",
+				controller: "AdminController",
+				controllerAs: "model",
+				resolve: {
+					admin: checkAdmin
+				}
+			})
+			.when('/website', {
+				templateUrl : "views/website/website-list.view.client.html",
 				controller: "WebsiteListController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/new", {
-				templateUrl: "views/website/website-new.view.client.html",
+			.when('/website/new', {
+				templateUrl : "views/website/website-new.view.client.html",
 				controller: "NewWebsiteController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid", {
-				templateUrl: "views/website/website-edit.view.client.html",
+			.when('/website/:wid', {
+				templateUrl : "views/website/website-edit.view.client.html",
 				controller: "EditWebsiteController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page", {
-				templateUrl: "views/page/page-list.view.client.html",
+			.when('/website/:wid/page', {
+				templateUrl : "views/page/page-list.view.client.html",
 				controller: "PageListController",
-				controllerAs: "model"
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page/new", {
-				templateUrl: "views/page/page-new.view.client.html",
+			.when('/website/:wid/page/new', {
+				templateUrl : "views/page/page-new.view.client.html",
 				controller: "NewPageController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page/:pid", {
-				templateUrl: "views/page/page-edit.view.client.html",
+			.when('/website/:wid/page/:pid', {
+				templateUrl : "views/page/page-edit.view.client.html",
 				controller: "EditPageController",
-				controllerAs: "model"
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page/:pid/widget", {
-				templateUrl: "views/widget/widget-list.view.client.html",
+			.when('/website/:wid/page/:pid/widget', {
+				templateUrl : "views/widget/widget-list.view.client.html",
 				controller: "WidgetListController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page/:pid/widget/new", {
-				templateUrl: "views/widget/widget-chooser.view.client.html",
+			.when('/website/:wid/page/:pid/widget/new', {
+				templateUrl : "views/widget/widget-chooser.view.client.html",
 				controller: "NewWidgetController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when('/user/:uid/website/:wid/page/:pid/widget/search', {
+			.when('/website/:wid/page/:pid/widget/search/', {
 				templateUrl : "views/widget/widget-flickr-search.view.client.html",
 				controller: "FlickrImageSearchController",
-				controllerAs: "model"
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
-			.when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
-				templateUrl: "views/widget/widget-edit.view.client.html",
+			.when('/website/:wid/page/:pid/widget/create/:wtype', {
+				templateUrl : "views/widget/widget-new.view.client.html",
+				controller: "CreateWidgetController",
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
+			})
+			.when('/website/:wid/page/:pid/widget/:wgid', {
+				templateUrl : "views/widget/widget-edit.view.client.html",
 				controller: "EditWidgetController",
-                controllerAs: "model",
-                resolve: {loggedin: checkLoggedin}
+				controllerAs: "model",
+				resolve: {
+					loggedin: checkLoggedin
+				}
 			})
+		// .when("/home", {
+		//     templateUrl : "./views/home/templates/home.html",
+		//     controller: "HomepageController",
+		//     controllerAs: "model",
+		//     resolve: {
+		//         currentUser: checkCurrentUser
+		//     }
+		// })
 			.otherwise({
-				redirectTo: "/"
+				redirectTo : "/login"
 			});
 	}
 
-    var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
-        var deferred = $q.defer();
-        $http.get('/api/loggedin')
-            .success(function (user) {
-                $rootScope.errorMessage = null;
-                if (user !== '0') {
-                    $rootScope.currentUser = user;
-                    deferred.resolve();
-                } else {
-                    deferred.reject();
-                    $location.url('/');
-                }
-            });
-        return deferred.promise;
-    };
-})
-();
+	var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+		var deferred = $q.defer();
+		$http
+			.get('/api/loggedin')
+			.then(function(response) {
+				var user = response.data;
+				if (user !== '0') {
+					deferred.resolve(user);
+				} else {
+					deferred.reject();
+					$location.url('/login');
+				}
+			});
+		return deferred.promise;
+	};
+
+	var checkCurrentUser = function ($q, $timeout, $http, $location, $rootScope) {
+		var deferred = $q.defer();
+
+		$http
+			.get('/api/loggedin')
+			.then(function(response) {
+				var user = response.data;
+				if (user === '0') {
+					user = null;
+				}
+				deferred.resolve(user);
+
+			});
+		return deferred.promise;
+	};
+
+	var checkAdmin = function ($q, $timeout, $http, $location, $rootScope) {
+		var deferred = $q.defer();
+
+		$http
+			.get('/api/loggedin')
+			.then(function(response) {
+				var user = response.data;
+				if (user !== '0') {
+					if (user.roles.indexOf('ADMIN') > -1) {
+						deferred.resolve(user);
+					}
+				} else {
+					$location.url('/login');
+				}
+
+			});
+		return deferred.promise;
+	};
+
+})();

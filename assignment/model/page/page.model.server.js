@@ -1,62 +1,81 @@
-module.exports = function () {
-    var model = {};
-    var mongoose = require("mongoose");
-    var PageSchema = require("./page.schema.server")();
-    var PageModel = mongoose.model("PageModel", PageSchema);
+module.exports = function(mongoose, websiteModel){
+	var pageSchema = require("./page.schema.server")(mongoose);
+	var pageModel = mongoose.model('pageModel', pageSchema);
 
-    var api = {
-        setModel: setModel,
-        createPage: createPage,
-        findAllPagesForWebsite: findAllPagesForWebsite,
-        findPageById: findPageById,
-        updatePage: updatePage,
-        deletePage: deletePage
-    };
-    
-    return api;
-    
-    function setModel(_model) {
-        model = _model;
-    }
-    
-    function createPage(websiteId, page) {
-        return model.websiteModel
-            .findWebsiteById(websiteId)
-            .then(
-                function (websiteObj) {
-                    PageModel.create(page)
-                        .then(
-                            function (pageObj) {
-                                pageObj._website = websiteObj;
-                                return pageObj.save();
-                            }
-                        );
-                }
-            );
-    }
-    
-    function findAllPagesForWebsite(websiteId) {
-        return model.websiteModel
-            .findWebsiteById(websiteId)
-            .then(
-                function (websiteObj) {
-                    return PageModel.find({_website: websiteObj})
-                }
-            );
-    }
-    
-    function findPageById(pageId) {
-        return PageModel.findById(pageId);
-    }
-    
-    function updatePage(pageId, page) {
-        return PageModel.update(
-            {_id: pageId},
-            page
-        );
-    }
-    
-    function deletePage(pageId) {
-        return PageModel.remove({_id: pageId});
-    }
+	var api = {
+		createPage : createPage,
+		findAllPagesForWebsite : findAllPagesForWebsite,
+		findPageById : findPageById,
+		updatePage : updatePage,
+		deletePage : deletePage,
+		removeWidgetFromPage : removeWidgetFromPage,
+		addWidgetToPage : addWidgetToPage
+	};
+
+	return api;
+
+	function createPage(websiteId, page) {
+		page._website = websiteId;
+		return pageModel.create(page)
+			.then(
+				function (page) {
+					return websiteModel.addPageToWebsite(websiteId, page._id);
+				}
+			);
+	}
+
+	function findAllPagesForWebsite(websiteId) {
+		return pages = pageModel
+			.find({_website: websiteId})
+			.populate('_website')
+			.exec();
+	}
+
+	function findPageById(pageId) {
+		return pageModel.findById(pageId);
+	}
+
+	function updatePage(pageId, page) {
+		return pageModel.update({
+			_id : pageId
+		}, {
+			name: page.name,
+			title: page.title,
+			description: page.description
+		});
+	}
+
+	function deletePage(websiteId, pageId) {
+		return pageModel
+			.remove({_id: pageId})
+			.then(function (status) {
+				return websiteModel
+					.removePageFromWebsite(websiteId, pageId);
+			});
+	}
+
+	function removeWidgetFromPage(pageId, widgetId) {
+		pageModel
+			.findById(pageId)
+			.then(
+				function (page) {
+					var index = page.widgets.indexOf(widgetId);
+					page.widgets.splice(index, 1);
+					page.save();
+				},
+				function (error) {
+					console.log("Error removing page");
+				}
+			);
+	}
+
+	function addWidgetToPage(pageId, widgetId) {
+		return pageModel
+			.findOne({_id: pageId})
+			.then(function (page) {
+				page.widgets.push(widgetId);
+				return page.save();
+			});
+	}
+
 };

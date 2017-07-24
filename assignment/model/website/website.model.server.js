@@ -1,65 +1,89 @@
-module.exports = function () {
-    var model = {};
-    var mongoose = require("mongoose");
-    var WebsiteSchema = require("./website.schema.server")();
-    var WebsiteModel = mongoose.model("WebsiteModel", WebsiteSchema);
+module.exports = function(mongoose, userModel) {
+	var websiteSchema = require("./website.schema.server")(mongoose);
+	var websiteModel = mongoose.model('websiteModel', websiteSchema);
 
-    var api = {
-        setModel: setModel,
-        createWebsiteForUser: createWebsiteForUser,
-        findAllWebsitesForUser: findAllWebsitesForUser,
-        findWebsiteById: findWebsiteById,
-        updateWebsite: updateWebsite,
-        deleteWebsite: deleteWebsite
-    };
+	var api = {
+		'createWebsiteForUser': createWebsiteForUser,
+		'findAllWebsitesForUser': findAllWebsitesForUser,
+		'findWebsiteById': findWebsiteById,
+		'updateWebsite': updateWebsite,
+		'removePageFromWebsite': removePageFromWebsite,
+		'deleteWebsite': deleteWebsite,
+		'findAllWebsites' : findAllWebsites,
+		'addPageToWebsite' : addPageToWebsite
+	};
 
-    return api;
+	return api;
 
-    function setModel(_model) {
-        model = _model;
-    }
+	function createWebsiteForUser(userId, website) {
+		website._user = userId;
+		return websiteModel
+			.create(website)
+			.then(
+				function (website) {
+					return userModel
+						.addWebsiteForUser(userId, website._id)
+				});
+	}
 
-    function createWebsiteForUser(userId, website) {
-        return WebsiteModel
-            .create(website)
-            .then(
-                function (websiteObj) {
-                    model.userModel
-                        .findUserById(userId)
-                        .then(
-                            function (userObj) {
-                                userObj.websites.push(websiteObj);
-                                websiteObj._user = userObj;
-                                websiteObj.save();
-                                return userObj.save();
-                            }
-                        );
-                }
-            );
-    }
+	function findAllWebsitesForUser(userId) {
+		return websites = websiteModel
+			.find({_user: userId})
+			.populate('_user')
+			.exec();
+	}
 
-    function findAllWebsitesForUser(userId) {
-        return model.userModel
-            .findUserById(userId)
-            .then(
-                function (userObj) {
-                    return WebsiteModel.find({_user: userObj});
-                }
-            );
-    }
+	function findWebsiteById(websiteId) {
+		return websiteModel.findOne({_id: websiteId});
+	}
 
-    function findWebsiteById(websiteId) {
-        return WebsiteModel.findById(websiteId);
-    }
+	function updateWebsite(websiteId, website) {
+		return websiteModel.update({
+			_id : websiteId
+		}, {
+			name: website.name,
+			description: website.description
+		});
+	}
 
-    function updateWebsite(websiteId, website) {
-        return WebsiteModel.update(
-            {_id: websiteId},
-            website
-        );
-    }
+	function removePageFromWebsite(websiteId, pageId) {
+		websiteModel
+			.findOne({_id: websiteId})
+			.then(
+				function(website){
+					var index = website.pages.indexOf(pageId);
+					website.pages.splice(index, 1);
+					// website.pages.pull(pageId);
+					website.save();
+				},
+				function(error){
+					console.log(error);
+				}
+			);
+	}
 
-    function deleteWebsite(websiteId) {
-        return WebsiteModel.remove({_id: websiteId});
-    }
+	function deleteWebsite(userId, websiteId) {
+		return websiteModel
+			.remove({_id: websiteId})
+			.then(
+				function (status) {
+					return userModel
+						.removeWebsiteFromUser(userId, websiteId);
+				}
+			);
+	}
+
+	function findAllWebsites() {
+		return websiteModel.find();
+	}
+
+	function addPageToWebsite(websiteId, pageId) {
+		return websiteModel
+			.findOne({_id: websiteId})
+			.then(function (website) {
+				website.pages.push(pageId);
+				return website.save();
+			});
+	}
+
 };

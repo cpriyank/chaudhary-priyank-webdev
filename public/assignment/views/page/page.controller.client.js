@@ -1,95 +1,98 @@
-(function(){
-    angular
-        .module("WebAppMaker")
-        .controller("PageListController", PageListController)
-        .controller("NewPageController", NewPageController)
-        .controller("EditPageController", EditPageController);
+(function() {
+	angular
+		.module("WebAppMaker")
+		.controller("PageListController", PageListController)
+		.controller("NewPageController", NewPageController)
+		.controller("EditPageController", EditPageController);
 
-    function PageListController($routeParams, PageService) {
-        var vm = this;
-        vm.userId = $routeParams["uid"];
-        vm.websiteId = $routeParams["wid"];
+	function PageListController($routeParams, PageService, loggedin) {
+		var vm = this;
+		vm.uid = loggedin._id;
+		vm.wid = $routeParams.wid;
+		PageService
+			.findPageByWebsiteId(vm.wid)
+			.then(renderPages);
 
-        function init() {
-            PageService
-                .findPageByWebsiteId(vm.websiteId)
-                .success(function(pages){
-                    vm.pages = pages;
-                })
-                .error(function(){
+		function renderPages(pages) {
+			vm.pages = pages;
+		}
+	}
 
-                });
-        }
-        init();
-    }
+	function NewPageController($routeParams, $timeout, $location, PageService, loggedin) {
+		var vm = this;
+		vm.uid = loggedin._id;
+		vm.wid = $routeParams.wid;
 
-    function NewPageController($routeParams, $location, PageService) {
-        var vm = this;
-        vm.userId = $routeParams["uid"];
-        vm.websiteId = $routeParams["wid"];
-        vm.createPage = createPage;
+		vm.createPage = createPage;
 
-        function createPage(page) {
-            if(typeof(page) === "undefined" || !page.name){
-                vm.error = "Page name is required";
-                return;
-            }
-            PageService
-                .createPage(vm.websiteId, page)
-                .success(function(){
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                })
-                .error(function(){
+		function createPage(pageName, pageTitle) {
+			if (pageName === undefined || pageName === null) {
+				vm.error = "Page name cannot be empty.";
+				$timeout(function () {
+					vm.error = null;
+				}, 3000);
+				return;
+			}
 
-                });
-        }
-    }
+			var page = {
+				name: pageName,
+				description: pageTitle
+			};
 
-    function EditPageController($routeParams, $location, PageService) {
-        var vm = this;
-        vm.userId = $routeParams["uid"];
-        vm.websiteId = $routeParams["wid"];
-        vm.pageId = $routeParams["pid"];
-        vm.updatePage = updatePage;
-        vm.deletePage = deletePage;
+			PageService
+				.createPage(vm.wid, page)
+				.then(function () {
+					$location.url("/website/" + vm.wid + "/page");
+				});
+		}
+	}
 
-        function init() {
-            PageService
-                .findPageById(vm.pageId)
-                .success(function(page){
-                    vm.page = page;
-                })
-                .error(function(){
+	function EditPageController($routeParams, $location, $timeout, PageService, loggedin) {
+		var vm = this;
+		// vm.uid = $routeParams.uid;
+		vm.uid = loggedin._id;
+		vm.wid = $routeParams.wid;
+		vm.pid = $routeParams.pid;
 
-                });
-        }
+		vm.updatePage = updatePage;
+		vm.deletePage = deletePage;
 
-        function updatePage(page) {
-            if(typeof(page) === "undefined" || !page.name){
-                vm.error = "Page name is required";
-                return;
-            }
-            PageService
-                .updatePage(vm.pageId, page)
-                .success(function(){
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                })
-                .error(function(){
+		function init() {
+			PageService
+				.findPageById(vm.pid)
+				.then(function (page) {
+					vm.page = page;
+				}, function (error) {
+					vm.error = "Cannot find that page by ID";
+					$timeout(function () {
+						vm.error = null;
+					}, 3000);
+				});
+		}
+		init();
 
-                });
-        }
+		function updatePage(newPage) {
 
-        function deletePage() {
-            PageService
-                .deletePage(vm.pageId)
-                .success(function(){
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
-                })
-                .error(function(){
+			PageService
+				.updatePage(vm.pid, newPage)
+				.then(function () {
+					$location.url("/website/" + vm.wid + "/page");
+				});
+		}
 
-                });
-        }
+		function deletePage(page) {
+			PageService.deletePage(vm.wid, page._id)
+				.then(
+					function () {
+						$location.url("/website/" + vm.wid + "/page");
+					},
+					function() {
+						vm.error = "Cannot delete this page";
+						$timeout(function () {
+							vm.error = null;
+						}, 3000);
+					});
 
-        init();
-    }
+		}
+	}
 })();

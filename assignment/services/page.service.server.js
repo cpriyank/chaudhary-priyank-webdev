@@ -1,82 +1,109 @@
-module.exports = function(app, model) {
+module.exports = function(app, models){
 
-    app.post('/api/website/:websiteId/page', createPage);
-    app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
-    app.get('/api/page/:pageId', findPageById);
-    app.put('/api/page/:pageId', updatePage);
-    app.delete('/api/page/:pageId', deletePage)
+	var model = models.pageModel;
 
-// API Calls
-    function createPage(req, res) {
-        var websiteId = req.params.websiteId;
-        var page = req.body;
-        model.pageModel
-            .createPage(websiteId, page)
-            .then(
-                function (pageObj) {
-        res.sendStatus(200);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-                }
-            );
-    }
+	app.post("/api/website/:wid/page", createPage);
 
-    function findAllPagesForWebsite(req, res) {
-        var websiteId = req.params.websiteId;
-        model.pageModel
-            .findAllPagesForWebsite(websiteId)
-            .then(
-                function (pages) {
-                    res.json(pages);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-        }
-            );
+	app.get("/api/website/:wid/page", findAllPagesForWebsite);
+	app.get("/api/page/:pid", findPageById);
 
-    }
+	app.put("/api/page/:pid", updatePage);
 
-    function findPageById(req, res) {
-        var pageId = req.params.pageId;
-        model.pageModel
-            .findPageById(pageId)
-            .then(
-                function (pageObj) {
-                    res.send(pageObj);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-        }
-            );
-    }
+	app.delete("/api/website/:wid/page/:pid", deletePage);
 
-    function updatePage(req, res) {
-        var pageId = req.params.pageId;
-        var page = req.body;
-        model.pageModel
-            .updatePage(pageId, page)
-            .then(
-                function () {
-        res.sendStatus(200);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-                }
-            );
-    }
+	function createPage(req, res) {
+		var wid = req.params.wid;
+		var page = req.body;
 
-    function deletePage(req, res) {
-        var pageId = req.params.pageId;
-        model.pageModel
-            .deletePage(pageId)
-            .then(
-                function () {
-        res.sendStatus(200);
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-                }
-            );
-    }
+		model
+			.createPage(wid, page)
+			.then(
+				function (page) {
+					if(page){
+						res.json(page);
+					} else {
+						page = null;
+						res.send(page);
+					}
+				},
+				function (error) {
+					res.sendStatus(400).send("error in creating page");
+				}
+			)
+	}
+
+	function findAllPagesForWebsite(req, res) {
+		var wid = req.params.wid;
+
+		model
+			.findAllPagesForWebsite(wid)
+			.then(
+				function (pages) {
+					if(pages) {
+						res.json(pages);
+					} else {
+						pages = null;
+						res.send(pages);
+					}
+				},
+				function (error) {
+					res.sendStatus(400).send("error in finding pages for website");
+				}
+			)
+	}
+
+	function findPageById(req, res) {
+		var pid = req.params.pid;
+		model
+			.findPageById(pid)
+			.then(
+				function (page) {
+					if (page) {
+						res.json(page);
+					} else {
+						page = null;
+						res.send(page);
+					}
+				},
+				function (error) {
+					res.sendStatus(400).send("error in finding page by Id");
+				}
+			);
+	}
+
+	function updatePage(req, res) {
+		var pid = req.params.pid;
+		var page = req.body;
+
+		model
+			.updatePage(pid, page)
+			.then(
+				function (page) {
+					res.json(page);
+				},
+				function (error) {
+					res.status(400).send("error in updating page");
+				}
+			);
+	}
+
+	function deletePage(req, res) {
+		var wid = req.params.wid;
+		var pid = req.params.pid;
+
+		if(pid){
+			model
+				.deletePage(wid, pid)
+				.then(
+					function (status){
+						res.sendStatus(200);
+					},
+					function (error){
+						res.sendStatus(400).send(error);
+					}
+				);
+		} else{
+			res.sendStatus(412);
+		}
+	}
 };

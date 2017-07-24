@@ -1,12 +1,17 @@
-module.exports = function() {
-    var mongoose = require("mongoose");
+module.exports = function(mongoose){
+	var Schema = mongoose.Schema;
 
-    var WebsiteSchema = mongoose.Schema({
-        _user: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
-        name: String,
-        description: String,
-        dateCreated: {type: Date, default: Date.now}
-    }, {collection: "website"});
+	var websiteSchema = mongoose.Schema({
+		_user: {type: mongoose.Schema.Types.ObjectId, ref: "userModel"},
+		name: String,
+		description: String,
+		pages : [{
+			type: Schema.Types.ObjectId,
+			ref : 'pageModel'
+		}],
+		dateCreated: {type: Date, default: Date.now}
+	},
+		{collection: 'website'});
 
-    return WebsiteSchema;
+	return websiteSchema;
 };
